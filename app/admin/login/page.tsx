@@ -25,11 +25,16 @@ export default function AdminLogin() {
 
     if (error) {
       toast({
-        variant: "destructive",
-        title: "Error",
+        title: "Login failed",
         description: error.message,
+        variant: "destructive",
       });
     } else {
+      toast({
+        title: "Success!",
+        description: "You've been successfully logged in.",
+        variant: "success",
+      });
       router.replace('/admin/dashboard');
     }
   };

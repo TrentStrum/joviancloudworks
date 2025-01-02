@@ -1,25 +1,24 @@
-import { HeroStars } from '@/components/sections/hero-stars';
-import { ProjectsSection } from '@/components/sections/projects';
-import { BlogSection } from '@/components/sections/blog';
-import { ContactSection } from '@/components/sections/contact';
+import LandingContactPage from './contact/page';
+import { LandingHeroPage } from './hero/page';
 import { SectionDivider } from '@/components/sections/section-divider';
+import FeaturedSolutionSection from './(featured)/solution/page';
+import FeaturedPostSection from './(featured)/post/page';
 
 export default function Home() {
-  return (
-    <main className="min-h-screen">
-      <HeroStars />
-      <SectionDivider />
-      <section className="section-transition">
-        <ProjectsSection />
-      </section>
-      <SectionDivider />
-      <section className="section-transition bg-gradient-to-b from-background to-secondary/20">
-        <BlogSection />
-      </section>
-      <SectionDivider />
-      <section className="section-transition">
-        <ContactSection />
-      </section>
-    </main>
-  );
+	return (
+		<main className="min-h-screen">
+			<LandingHeroPage />
+			<SectionDivider />
+			<section className="section-transition">
+				<FeaturedSolutionSection />
+			</section>
+			<section className="section-transition">
+				<FeaturedPostSection />
+			</section>
+			<SectionDivider />
+			<section className="section-transition">
+				<LandingContactPage />
+			</section>
+		</main>
+	);
 }

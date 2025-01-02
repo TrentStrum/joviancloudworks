@@ -24,7 +24,7 @@ const metrics = [
   },
 ];
 
-export function HeroSection() {
+export function LandingHeroSection() {
   const router = useRouter();
 
   const handleExplore = () => {
@@ -62,7 +62,7 @@ export function HeroSection() {
             <Button 
               size="lg" 
               variant="outline"
-              className="hover:bg-secondary transition-colors"
+              className="hover:bg-secondary transition-colors text-gray-800 dark:text-inherit"
               onClick={handleSubmitIdea}
             >
               <Cloud className="mr-2 h-4 w-4" />

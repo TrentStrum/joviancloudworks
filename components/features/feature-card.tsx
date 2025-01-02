@@ -6,8 +6,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
-interface FeatureCardProps {
+export interface FeatureCardProps {
   title: string;
   description: string;
   image: string;
@@ -29,10 +30,11 @@ export function FeatureCard({
   return (
     <Card className={cn("overflow-hidden group relative", className)}>
       <div className="aspect-video relative">
-        <img
+        <Image
           src={image}
           alt={title}
-          className="object-cover w-full h-full transition-transform group-hover:scale-105"
+          fill
+          className="object-cover transition-transform group-hover:scale-105"
         />
         <Button
           size="icon"

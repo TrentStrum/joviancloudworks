@@ -1,12 +1,12 @@
 "use client"
 
 import Link from 'next/link';
-import { Github, Twitter, Linkedin, Mail, Lock } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail, Lock, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+  { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
   { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
   { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' }
 ];
@@ -64,7 +64,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Jovian CloudWorks. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} JovianCloudWorks. All rights reserved.</p>
         </div>
       </div>
     </footer>

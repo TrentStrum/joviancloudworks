@@ -27,17 +27,20 @@ interface ShootingStarsProps {
 
 const getRandomStartPoint = () => {
   const side = Math.floor(Math.random() * 4);
-  const offset = Math.random() * window.innerWidth;
+  const width = window.innerWidth;
+  const height = window.innerHeight * 2;
+  const offset = Math.random() * width;
+  const verticalOffset = Math.random() * height - window.innerHeight / 2;
 
   switch (side) {
     case 0:
-      return { x: offset, y: 0, angle: 45 };
+      return { x: offset, y: -window.innerHeight / 2, angle: 45 };
     case 1:
-      return { x: window.innerWidth, y: offset, angle: 135 };
+      return { x: width, y: verticalOffset, angle: 135 };
     case 2:
-      return { x: offset, y: window.innerHeight, angle: 225 };
+      return { x: offset, y: height - window.innerHeight / 2, angle: 225 };
     case 3:
-      return { x: 0, y: offset, angle: 315 };
+      return { x: 0, y: verticalOffset, angle: 315 };
     default:
       return { x: 0, y: 0, angle: 45 };
   }
@@ -46,8 +49,8 @@ const getRandomStartPoint = () => {
 export const ShootingStars: React.FC<ShootingStarsProps> = ({
   minSpeed = 10,
   maxSpeed = 30,
-  minDelay = 1200,
-  maxDelay = 4200,
+  minDelay = 600,
+  maxDelay = 2100,
   starColor = "#9E00FF",
   trailColor = "#2EB9DF",
   starWidth = 10,

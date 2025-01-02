@@ -6,10 +6,10 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 export function FeatureEditor() {
-  const [features, setFeatures] = useState([]);
+  const [features, setFeatures] = useState<any[]>([]);
   const { toast } = useToast();
   const supabase = createClientComponentClient();
 

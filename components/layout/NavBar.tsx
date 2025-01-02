@@ -29,7 +29,7 @@ const routes = [
   }
 ];
 
-export function Navigation() {
+export function NavBar() {
   const pathname = usePathname();
 
   return (
@@ -37,7 +37,7 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="font-bold text-xl gradient-text">
-            Jovian CloudWorks
+            JovianCloudWorks
           </Link>
           
           <div className="flex gap-2">

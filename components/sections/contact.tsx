@@ -11,15 +11,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Progress } from "@/components/ui/progress";
 import { Upload, Send } from "lucide-react";
+import { useRef, useState } from 'react';
+import { useToast } from "@/hooks/helpers/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  company: z.string().min(2, "Company name must be at least 2 characters"),
+  company: z.string().min(2, "Company name must be at least 2 characters").or(z.literal("")),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 export function ContactSection() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,8 +33,45 @@ export function ContactSection() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  const handleUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setSelectedFiles(files);
+  };
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) throw new Error('Failed to send message');
+
+      toast({
+        title: "Message Sent!",
+        description: "Thanks for reaching out. We'll get back to you soon.",
+        variant: "success",
+      });
+      
+      form.reset();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to send message",
+      });
+    }
   };
 
   const progress = Math.min(
@@ -50,7 +90,7 @@ export function ContactSection() {
           className="text-center mb-8"
         >
           <h2 className="text-4xl font-bold mb-4 gradient-text">
-            Let's Build Together
+            Let&apos;s Build Together
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Ready to transform your cloud infrastructure? Share your vision with us.
@@ -97,7 +137,10 @@ export function ContactSection() {
                 name="company"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Company</FormLabel>
+                    <FormLabel className="flex items-center gap-1">
+                      Company
+                      <span className="text-sm text-muted-foreground">(optional)</span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="Your Company" {...field} />
                     </FormControl>
@@ -125,10 +168,18 @@ export function ContactSection() {
               />
 
               <div className="flex gap-4">
-                <Button type="button" variant="outline" className="w-full">
+                <input 
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={onFileChange}
+                  className="hidden"
+                  multiple
+                  accept=".pdf,.doc,.docx"
+                />
+                {/* <Button type="button" variant="outline" className="w-full" onClick={handleUpload}>
                   <Upload className="mr-2 h-4 w-4" />
                   Upload Files
-                </Button>
+                </Button> */}
                 <Button type="submit" className="w-full">
                   <Send className="mr-2 h-4 w-4" />
                   Send Message

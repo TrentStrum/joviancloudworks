@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { FloatingDock } from '@/components/navigation/floating-dock';
+import { FloatingDock } from '@/components/layout/FloatingDock';
 
 describe('FloatingDock', () => {
   it('renders social links correctly', () => {

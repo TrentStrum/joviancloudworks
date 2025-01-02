@@ -18,7 +18,7 @@ export function SpacetimeGrid({ children, className = "" }: SpacetimeGridProps) 
             linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)
           `,
           backgroundSize: '24px 24px',
-          '--grid-color': 'rgba(var(--primary), 0.1)',
+          '--grid-color': 'rgba(var(--primary), 0.2)',
         } as React.CSSProperties}
       />
       <div className="relative z-10">

@@ -1,15 +1,9 @@
 "use client"
 
 import { useState, useMemo } from 'react';
+import type { FeatureCardProps } from '@/components/features/feature-card';
 
-interface Feature {
-  title: string;
-  description: string;
-  tags: string[];
-  [key: string]: any;
-}
-
-export function useFeatureSearch(features: Feature[]) {
+export function useFeatureSearch(features: FeatureCardProps[]) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 

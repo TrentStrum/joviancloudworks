@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { BlogFeatureGrid } from '@/components/blog/blog-feature-grid';
-import { DotPattern } from '@/components/ui/dot-pattern';
+import { SpacetimeGrid } from '@/components/ui/spacetime-grid';
 
 export function BlogSection() {
   return (
-    <DotPattern className="py-20">
+    <SpacetimeGrid className="py-20">
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,6 +24,6 @@ export function BlogSection() {
 
         <BlogFeatureGrid />
       </div>
-    </DotPattern>
+    </SpacetimeGrid>
   );
 }

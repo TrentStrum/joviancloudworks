@@ -8,6 +8,7 @@ import React, {
   RefObject,
   useCallback,
 } from "react";
+import { useTheme } from "next-themes";
 
 interface StarProps {
   x: number;
@@ -34,6 +35,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
   maxTwinkleSpeed = 1,
   className,
 }) => {
+  const { theme } = useTheme();
   const [stars, setStars] = useState<StarProps[]>([]);
   const canvasRef: RefObject<HTMLCanvasElement> =
     useRef<HTMLCanvasElement>(null);
@@ -45,10 +47,12 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       return Array.from({ length: numStars }, () => {
         const shouldTwinkle =
           allStarsTwinkle || Math.random() < twinkleProbability;
+        const baseRadius = theme === 'dark' ? 0.5 : 1.0;
+        const radiusVariation = theme === 'dark' ? 0.05 : 0.1;
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 0.05 + 0.5,
+          radius: Math.random() * radiusVariation + baseRadius,
           opacity: Math.random() * 0.5 + 0.5,
           twinkleSpeed: shouldTwinkle
             ? minTwinkleSpeed +
@@ -63,6 +67,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       twinkleProbability,
       minTwinkleSpeed,
       maxTwinkleSpeed,
+      theme,
     ]
   );
 
@@ -81,15 +86,16 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
     };
 
     updateStars();
-
+    const canvas = canvasRef.current;
     const resizeObserver = new ResizeObserver(updateStars);
-    if (canvasRef.current) {
-      resizeObserver.observe(canvasRef.current);
+    
+    if (canvas) {
+      resizeObserver.observe(canvas);
     }
 
     return () => {
-      if (canvasRef.current) {
-        resizeObserver.unobserve(canvasRef.current);
+      if (canvas) {
+        resizeObserver.unobserve(canvas);
       }
     };
   }, [
@@ -115,7 +121,8 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       stars.forEach((star) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        const starColor = theme === 'dark' ? '255, 255, 255' : '31, 41, 55';
+        ctx.fillStyle = `rgba(${starColor}, ${star.opacity})`;
         ctx.fill();
 
         if (star.twinkleSpeed !== null) {
@@ -133,12 +140,12 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [stars]);
+  }, [stars, theme]);
 
   return (
     <canvas
       ref={canvasRef}
-      className={cn("h-full w-full absolute inset-0", className)}
+      className={cn("h-[200vh] w-full absolute -top-[50vh]", className)}
     />
   );
 };

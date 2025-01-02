@@ -27,7 +27,7 @@ const carouselImages = [
 
 const liveFeatures = [
   {
-    title: "Cloud Analytics",
+    title: "Cloud Analytics1",
     description: "Real-time data processing and visualization",
     price: "$99/month",
     link: "/features/analytics"
