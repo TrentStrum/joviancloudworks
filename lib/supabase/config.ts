@@ -1,4 +1,4 @@
-import type { Database } from '@/src/types/database.types';
+import type { Database } from '@/types/database.types';
 
 export const supabaseConfig = {
   url: process.env.NEXT_PUBLIC_SUPABASE_URL!,

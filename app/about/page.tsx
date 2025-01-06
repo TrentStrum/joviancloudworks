@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Timeline } from "@/components/about/timeline";
-import { Skills } from "@/components/about/skills";
+import { Timeline } from "@/app/about/components/timeline";
+import { Skills } from "@/app/about/components/skills";
 import { timelineData } from "@/lib/data/timeline-data";
 
 export default function AboutPage() {

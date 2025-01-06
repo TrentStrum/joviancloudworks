@@ -5,10 +5,10 @@ import { Github, Twitter, Linkedin, Mail, Lock, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  // { icon: Github, href: 'https://github.com', label: 'GitHub' },
   { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
   { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' }
+  { icon: Mail, href: '/contact', label: 'Email' }
 ];
 
 const quickLinks = [

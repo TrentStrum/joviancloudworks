@@ -1,93 +1,55 @@
 "use client"
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/helpers/use-toast';
+import { useBlogPosts, useCreateBlogPost, useUpdateBlogPost, useDeleteBlogPost } from '@/hooks/react-query/use-blog';
+import type { BlogPost, BlogPostFormData } from '@/types/blog.types';
+import { AdminPostViewer } from '@/components/admin/admin-post-viewer';
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
+import { Star, Eye } from 'lucide-react';
+import { PreviewModal } from './preview-modal';
 
-interface Post {
-  id?: number;
-  title: string;
-  content: string;
-  image_url?: string;
-}
 
-export function PostEditor({ postId }: { postId?: string }) {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [editingPost, setEditingPost] = useState<Post | null>(null);
+export function PostEditor(): JSX.Element {
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const { toast } = useToast();
+  const { data, isLoading } = useBlogPosts({ sortBy: 'created_at' });
 
-  const loadPosts = useCallback(async () => {
-    try {
-      const response = await fetch('/api/posts');
-      if (!response.ok) throw new Error('Failed to fetch posts');
-      const data = await response.json();
-      setPosts(data);
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to load posts",
-      });
-    }
-  }, [toast]);
+  const createPostMutation = useCreateBlogPost();
+  const updatePostMutation = useUpdateBlogPost(editingPost?.id?.toString() ?? '');
+  const deletePostMutation = useDeleteBlogPost();
 
-  const loadSinglePost = useCallback(async (id: string) => {
-    try {
-      const response = await fetch(`/api/posts/${id}`);
-      if (!response.ok) throw new Error('Failed to fetch post');
-      const data = await response.json();
-      setEditingPost(data);
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to load post",
-      });
-    }
-  }, [toast]);
+  const [showPreview, setShowPreview] = useState(false);
+  const [formData, setFormData] = useState<Partial<BlogPost>>({});
 
-  useEffect(() => {
-    loadPosts();
-    if (postId) {
-      loadSinglePost(postId);
-    }
-  }, [postId, loadPosts, loadSinglePost]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const postData = {
-      title: formData.get('title'),
-      content: formData.get('content'),
-      image_url: formData.get('image_url') || '/placeholder.jpg',
+    const postData: BlogPostFormData = {
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      image_url: formData.get('image_url') as string || '/Jupiter.png',
+      featured: formData.get('featured') === 'on',
     };
 
     try {
-      const url = editingPost 
-        ? `/api/posts/${editingPost.id}`
-        : '/api/posts';
-      
-      const response = await fetch(url, {
-        method: editingPost ? 'PATCH' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Failed to save post');
+      if (editingPost?.id) {
+        await updatePostMutation.mutateAsync(postData);
+      } else {
+        await createPostMutation.mutateAsync(postData);
+      }
 
       toast({
         variant: "success",
         title: "Success",
-        description: editingPost 
-          ? "Post updated successfully"
-          : "Post created successfully",
+        description: `Post ${editingPost ? 'updated' : 'created'} successfully`,
       });
 
-      await loadPosts();
       (e.target as HTMLFormElement).reset();
       setEditingPost(null);
     } catch (error) {
@@ -99,23 +61,16 @@ export function PostEditor({ postId }: { postId?: string }) {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string): Promise<void> => {
     if (!confirm('Are you sure you want to delete this post?')) return;
 
     try {
-      const response = await fetch(`/api/posts/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) throw new Error('Failed to delete post');
-
+      await deletePostMutation.mutateAsync(id);
       toast({
         variant: "success",
         title: "Success",
         description: "Post deleted successfully",
       });
-
-      loadPosts();
     } catch (error) {
       toast({
         variant: "destructive",
@@ -125,32 +80,137 @@ export function PostEditor({ postId }: { postId?: string }) {
     }
   };
 
+  const handleFormChange = (e: React.FormEvent<HTMLFormElement>): void => {
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    setFormData({
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      image_url: formData.get('image_url') as string || '/Jupiter.png',
+      featured: formData.get('featured') === 'on',
+    });
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+
+  const blogPosts = data?.pages.flat() ?? [];
+  const formattedPosts = blogPosts.map(post => ({
+    id: post.id,
+    description: post.content,
+    titleText: post.title,
+    title: (
+      <div className="flex items-center gap-2">
+        {post.featured && (
+          <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+        )}
+        <span>{post.title}</span>
+      </div>
+    ),
+    src: post.image_url || '/Jupiter.png',
+    ctaText: 'View Details',
+    ctaLink: '#',
+    content: () => (
+      <div className="flex gap-2">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={(e) => {
+            e.stopPropagation();
+            setEditingPost(post);
+          }}
+        >
+          Edit
+        </Button>
+        <Button 
+          variant="destructive" 
+          size="sm"
+          onClick={(e) => {
+            e.stopPropagation();
+            post.id && handleDelete(post.id.toString());
+          }}
+          disabled={deletePostMutation.isPending}
+        >
+          Delete
+        </Button>
+      </div>
+    ),
+  }));
+
   return (
     <div className="space-y-8">
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">
-          {editingPost ? 'Edit Post' : 'Create New Post'}
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input 
-            name="title" 
-            placeholder="Post Title" 
-            defaultValue={editingPost?.title} 
-            required 
-          />
-          <Input 
-            name="image_url" 
-            placeholder="Image URL" 
-            defaultValue={editingPost?.image_url || ''} 
-          />
-          <Textarea 
-            name="content" 
-            placeholder="Post Content" 
-            defaultValue={editingPost?.content} 
-            required 
-          />
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">
+            {editingPost ? 'Edit Post' : 'Create New Post'}
+          </h2>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowPreview(true)}
+            disabled={!formData.title && !formData.content}
+          >
+            <Eye className="h-4 w-4 mr-2" />
+            Preview
+          </Button>
+        </div>
+        <form 
+          onSubmit={handleSubmit} 
+          onChange={handleFormChange}
+          className="space-y-4"
+        >
+          <div className="space-y-2">
+            <label htmlFor="title" className="text-sm font-medium">
+              Title
+            </label>
+            <Input 
+              id="title"
+              name="title" 
+              placeholder="Post Title" 
+              defaultValue={editingPost?.title} 
+              required 
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="image_url" className="text-sm font-medium">
+              Image URL
+            </label>
+            <Input 
+              id="image_url"
+              name="image_url" 
+              placeholder="Image URL" 
+              defaultValue={editingPost?.image_url || '/Jupiter.png'} 
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="content" className="text-sm font-medium">
+              Content
+            </label>
+            <Textarea 
+              id="content"
+              name="content" 
+              placeholder="Post Content" 
+              defaultValue={editingPost?.content} 
+              required 
+            />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="featured"
+              name="featured"
+              defaultChecked={editingPost?.featured}
+              className="border border-input dark:border-neutral-700 data-[state=unchecked]:bg-transparent [&>span]:bg-muted"
+            />
+            <Label htmlFor="featured">Featured Post</Label>
+          </div>
+
           <div className="flex gap-2">
-            <Button type="submit">
+            <Button 
+              type="submit"
+              disabled={createPostMutation.isPending || updatePostMutation.isPending}
+            >
               {editingPost ? 'Update Post' : 'Create Post'}
             </Button>
             {editingPost && (
@@ -166,34 +226,19 @@ export function PostEditor({ postId }: { postId?: string }) {
         </form>
       </Card>
 
+      <PreviewModal
+        isOpen={showPreview}
+        onClose={() => setShowPreview(false)}
+        post={formData}
+      />
+
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Existing Posts</h2>
-        {posts.map((post) => (
-          <Card key={post.id} className="p-4">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-semibold">{post.title}</h3>
-                <p className="text-sm text-muted-foreground">{post.content}</p>
-              </div>
-              <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => setEditingPost(post)}
-                >
-                  Edit
-                </Button>
-                <Button 
-                  variant="destructive" 
-                  size="sm"
-                  onClick={() => post.id && handleDelete(post.id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-          </Card>
-        ))}
+        <AdminPostViewer 
+          posts={formattedPosts} 
+          onEdit={setEditingPost} 
+          onDelete={handleDelete} 
+        />
       </div>
     </div>
   );

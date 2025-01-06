@@ -3,10 +3,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
-import { FloatingDock } from '@/components/layout/FloatingDock';
 import { Footer } from '@/components/layout/Footer';
 import { NavigationWrapper } from '@/components/layout/NavigationWrapper';
 import { QueryProvider } from '@/providers/query-provider';
+import { RouteConditionalWrapper } from '@/components/layout/RouteConditionalWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,15 +21,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en" suppressHydrationWarning>
 			<body className={inter.className}>
 				<QueryProvider>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<div className="flex flex-col min-h-screen">
-						<NavigationWrapper />
-							<FloatingDock />
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<div className="flex flex-col min-h-screen">
+							<NavigationWrapper />
+							<RouteConditionalWrapper />
 							<div className="star-field" />
 							<main className="flex-grow pt-16">{children}</main>
 							<Footer />

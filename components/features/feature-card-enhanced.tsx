@@ -5,8 +5,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
-import { cardVariants } from "./transitions/variants";
-import { useIntersection } from "./transitions/use-intersection";
+import { cardVariants } from "../transitions/variants";
+import { useIntersection } from "../transitions/use-intersection";
 
 interface FeatureCardProps {
   title: string;

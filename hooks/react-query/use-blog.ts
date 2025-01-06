@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useInfiniteQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/hooks/react-query/queryKeys';
 import { apiClient } from '@/lib/apiClient';
 
@@ -58,40 +58,37 @@ export function useBlogPost(slug: string): UseQueryResult<BlogPost, Error> {
 	});
 }
 
-export function useCreateBlogPost(): UseMutationResult<BlogPost, Error, BlogPostFormData> {
-	const queryClient = useQueryClient();
-
+export const useCreateBlogPost = () => {
 	return useMutation({
 		mutationFn: async (data: BlogPostFormData) => {
-			const response = await apiClient.post<BlogPost>('/blog', data);
-			return response;
-		},
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['blog', 'posts'] });
+			if (data.featured) {
+				await apiClient.post('/api/posts/unfeature-all');
+			}
+			return apiClient.post('/api/posts', data);
 		},
 	});
-}
+};
 
-export function useUpdateBlogPost(
-	postId: string
-): UseMutationResult<BlogPost, Error, BlogPostFormData> {
+export const useUpdateBlogPost = (id: string) => {
 	return useMutation({
 		mutationFn: async (data: BlogPostFormData) => {
-			const response = await apiClient.put<BlogPost>(`/admin/blog/${postId}`, data);
-			return response;
+			if (data.featured) {
+				await apiClient.post('/api/posts/unfeature-all', { excludeId: id });
+			}
+			return apiClient.put(`/api/posts/${id}`, data);
 		},
 	});
-}
+};
 
 export function useDeleteBlogPost(
 	options?: UseMutationOptions<void, Error, string>
 ): UseMutationResult<void, Error, string> {
 	return useMutation({
-		mutationFn: async (id: string): Promise<void> => {
-			await apiClient.delete(`/admin/blog/${id}`);
-		},
-		...options,
-	});
+			mutationFn: async (id: string): Promise<void> => {
+				await apiClient.delete(`/api/posts/${id}`);
+			},
+			...options,
+		});
 }
 
 export function useBlogPostWithViews(slug: string): UseQueryResult<BlogPost, Error> {
@@ -120,3 +117,13 @@ export const useBlogComments = (blogId: string, options?: UseQueryOptions<Commen
 		...options,
 	});
 };
+
+export function useFeaturedPost(): UseQueryResult<BlogPost, Error> {
+	return useQuery({
+		queryKey: ['blog', 'featured'],
+		queryFn: async () => {
+			const response = await apiClient.get<BlogPost>('/api/posts/featured');
+			return response;
+		},
+	});
+}

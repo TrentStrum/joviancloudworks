@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { withTimeout } from './helpers';
 
-import type { Profile } from '@/types/user.types';
 import type { AxiosError } from 'axios';
 
 declare module 'axios' {
@@ -121,66 +120,7 @@ export const apiClient = {
 		}
 	},
 
-	auth: {
-		onAuthStateChange(callback: AuthEventCallback): { subscription: AuthSubscription } {
-			let retryCount = 0;
-			const MAX_RETRIES = 3;
-			const RETRY_DELAY = 5000;
 
-			function setupEventSource(): EventSource {
-				const eventSource = new EventSource('/api/auth/events', {
-					withCredentials: true,
-				});
-
-				eventSource.onopen = (): void => {
-					retryCount = 0;
-					// eslint-disable-next-line no-console
-					console.debug('Auth state change connection established');
-				};
-
-				eventSource.onmessage = async (event: MessageEvent): Promise<void> => {
-					try {
-						const data = JSON.parse(event.data) as AuthStateChangeEvent;
-						await callback(data.event, data.session);
-					} catch (error) {
-						// eslint-disable-next-line no-console
-						console.error('Error processing auth state change:', error);
-					}
-				};
-
-				eventSource.onerror = (error: Event): void => {
-					// eslint-disable-next-line no-console
-					console.error('Auth state change connection error:', error);
-					if (eventSource.readyState === EventSource.CLOSED) {
-						eventSource.close();
-						if (retryCount < MAX_RETRIES) {
-							retryCount++;
-							setTimeout(() => {
-								setupEventSource();
-							}, RETRY_DELAY);
-						}
-					}
-				};
-
-				return eventSource;
-			}
-
-			const eventSource = setupEventSource();
-
-			const subscription: AuthSubscription = {
-				unsubscribe: (): void => {
-					eventSource.close();
-				},
-			};
-
-			return { subscription };
-		},
-
-		async getProfile<T = Profile>(): Promise<{ data: T }> {
-			const response = await apiClient.get<T>('/auth/profile');
-			return { data: response };
-		},
-	},
 };
 
 interface EnhancedError extends Error {

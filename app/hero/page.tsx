@@ -1,5 +1,5 @@
-import { HeroStars } from "@/components/sections/hero-stars";
+import { HeroStars } from "@/app/hero/components/hero-stars";
 
-export function LandingHeroPage() {
+export function HeroSection() {
 	return <HeroStars />;
 }

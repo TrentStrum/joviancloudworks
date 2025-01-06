@@ -1,5 +1,5 @@
 export interface BlogPost {
-	id: string;
+	id: string | number;
 	title: string;
 	content: string;
 	slug: string;
@@ -23,13 +23,13 @@ export interface BlogPost {
 		role: string;
 	};
 	readTime?: string;
+	image_url?: string;
+	views: number;
 }
 
-export type BlogPostFormData = {
+export interface BlogPostFormData {
 	title: string;
 	content: string;
-	excerpt?: string;
-	shortDescription?: string;
-	category?: string;
-	slug?: string;
-};
+	image_url?: string;
+	featured: boolean;
+}
