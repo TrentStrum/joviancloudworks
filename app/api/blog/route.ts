@@ -2,29 +2,44 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import type { Database } from '@/types/database.types';
+import type { Database } from '@/types/supabase.types';
 
-export async function GET(): Promise<NextResponse> {
-	try {
-		const supabase = createRouteHandlerClient<Database>({ cookies });
+export async function GET(request: Request) {
+	const { searchParams } = new URL(request.url);
+	const page = searchParams.get('page') || '1';
+	const searchTerm = searchParams.get('searchTerm');
+	const sortBy = searchParams.get('sortBy');
 
-		const { data: posts, error } = await supabase
-			.from('posts')
-			.select('*')
-			.order('created_at', { ascending: false });	
+	const supabase = createRouteHandlerClient({ cookies });
+	let query = supabase.from('posts').select('*');
 
-		if (error) throw error;
-
-		return NextResponse.json(posts);
-	} catch (error) {
-		return NextResponse.json({ error: 'Error fetching blog posts' }, { status: 500 });
+	// Handle sort options
+	switch (sortBy) {
+		case 'newest':
+			query = query.order('created_at', { ascending: false });
+			break;
+		case 'oldest':
+			query = query.order('created_at', { ascending: true });
+			break;
+		default:
+			query = query.order('created_at', { ascending: false });
 	}
+
+	if (searchTerm) {
+		query = query.or(`title.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`);
+	}
+
+	const { data, error } = await query
+		.range((parseInt(page) - 1) * 10, parseInt(page) * 10 - 1);
+
+	if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+	return NextResponse.json(data);
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
 	try {
 		const supabase = createRouteHandlerClient<Database>({ cookies });
-		const json = await request.json();
+		const { title, content, image_url, featured } = await request.json();
 
 		// Get current user
 		const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -35,8 +50,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 		const { data: post, error } = await supabase
 			.from('posts')
 			.insert({
-				...json,
-				author_id: user.id,
+				title,
+				content,
+				image_url,
+				featured,
 			})
 			.select()
 			.single();
@@ -45,6 +62,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
 		return NextResponse.json(post);
 	} catch (error) {
+		console.error('Create post error:', error);
 		return NextResponse.json({ error: 'Error creating blog post' }, { status: 500 });
 	}
 }

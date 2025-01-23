@@ -15,21 +15,23 @@ interface AdminPostViewerProps {
 		src: string;
 		ctaText: string;
 		ctaLink: string;
-		content: () => React.ReactNode;
+		content: (setActiveId: (id: string | number | null) => void) => React.ReactNode;
 	}>;
 	onEdit: (post: BlogPost) => void;
 	onDelete: (id: string) => Promise<void>;
 }
 
-export function AdminPostViewer({ posts, onEdit, onDelete }: AdminPostViewerProps): JSX.Element {
-	const [active, setActive] = useState<(typeof posts)[number] | null>(null);
+export function AdminPostViewer({ posts }: AdminPostViewerProps): JSX.Element {
+	const [activeId, setActiveId] = useState<string | number | null>(null);
 	const ref = useRef<HTMLDivElement>(null);
 	const id = useId();
+
+	const active = posts.find(post => post.id === activeId);
 
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent) {
 			if (event.key === 'Escape') {
-				setActive(null);
+				setActiveId(null);
 			}
 		}
 
@@ -43,51 +45,78 @@ export function AdminPostViewer({ posts, onEdit, onDelete }: AdminPostViewerProp
 		return () => window.removeEventListener('keydown', onKeyDown);
 	}, [active]);
 
-	useOutsideClick(ref, () => setActive(null));
+	useOutsideClick(ref, () => setActiveId(null));
+
+	const renderPostContent = (post: AdminPostViewerProps['posts'][0], isModal = false) => (
+		<>
+			<div className={`flex ${isModal ? 'flex-col' : 'gap-4 items-center'}`}>
+				<div className="relative">
+					<Image
+						width={isModal ? 600 : 56}
+						height={isModal ? 400 : 56}
+						src={post.src}
+						alt={post.titleText}
+						className={isModal ? 'w-full h-[300px] object-cover rounded-t-xl' : 'rounded-lg object-cover'}
+						priority={isModal}
+					/>
+				</div>
+				{isModal ? (
+					<>
+						<div className="px-6">
+							<div className="mt-6">
+								<motion.h3
+									layoutId={`title-${post.id}-${id}`}
+										className="text-2xl font-semibold mb-3"
+								>
+									{post.title}
+								</motion.h3>
+								<p className="text-muted-foreground text-base">
+									{post.description}
+								</p>
+							</div>
+						</div>
+						<div className="mt-6 px-6 pb-6">
+							{post.content(setActiveId)}
+						</div>
+					</>
+				) : (
+					<div>
+						<h3 className="font-medium">{post.title}</h3>
+						<p className="text-sm text-muted-foreground line-clamp-1">
+							{post.description}
+						</p>
+					</div>
+				)}
+			</div>
+		</>
+	);
 
 	return (
 		<>
-			<AnimatePresence>
+			<AnimatePresence mode="wait">
 				{active && (
 					<>
 						<motion.div
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							className="fixed inset-0 bg-black/20 h-full w-full z-10"
+							className="fixed inset-0 bg-black/40 backdrop-blur-sm h-full w-full z-10"
 						/>
-						<div className="fixed inset-0 grid place-items-center z-[100]">
+						<div className="fixed inset-0 grid place-items-center z-[100] p-4">
 							<motion.div
-								layoutId={`card-${active.title}-${id}`}
+								layoutId={`card-${active.id}-${id}`}
 								ref={ref}
-								className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+								className="w-full max-w-[600px] h-fit max-h-[90vh] flex flex-col bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-2xl"
 							>
-								<motion.div layoutId={`image-${active.title}-${id}`}>
-									<Image
-										priority
-										width={200}
-										height={200}
-										src={active.src}
-										alt={active.titleText}
-										className="w-full h-80 object-cover object-center"
-									/>
-								</motion.div>
-								<div className="p-6">
-									<div className="flex justify-between items-start">
-										<div>
-											<motion.h3
-												layoutId={`title-${active.title}-${id}`}
-												className="text-xl font-semibold mb-2"
-											>
-												{active.title}
-											</motion.h3>
-											<motion.p className="text-muted-foreground">
-												{active.description}
-											</motion.p>
-										</div>
-										<motion.div layoutId={`button-${active.title}-${id}`}>
-											{active.content()}
-										</motion.div>
+								<div className="relative">
+									<button
+										onClick={() => setActiveId(null)}
+										className="absolute right-4 top-4 z-10 p-2 rounded-full bg-white/80 dark:bg-neutral-800/80 hover:bg-white dark:hover:bg-neutral-800 transition-colors"
+									>
+										<CloseIcon />
+									</button>
+									<div className="overflow-y-auto">
+										{renderPostContent(active, true)}
 									</div>
 								</div>
 							</motion.div>
@@ -100,36 +129,16 @@ export function AdminPostViewer({ posts, onEdit, onDelete }: AdminPostViewerProp
 				<ul className="divide-y divide-transparent">
 					{posts.map((post) => (
 						<motion.div
-							layoutId={`card-${post.title}-${id}`}
+							layoutId={`card-${post.id}-${id}`}
 							key={post.id}
-							onClick={() => setActive(post)}
-							className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-accent rounded-lg cursor-pointer"
+							className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-accent rounded-lg"
 						>
-							<div className="flex gap-4 items-center">
-								<motion.div layoutId={`image-${post.title}-${id}`}>
-									<Image
-										width={56}
-										height={56}
-										src={post.src}
-										alt={post.titleText}
-										className="rounded-lg object-cover"
-									/>
-								</motion.div>
-								<div>
-									<motion.h3
-										layoutId={`title-${post.title}-${id}`}
-										className="font-medium"
-									>
-										{post.title}
-									</motion.h3>
-									<p className="text-muted-foreground text-sm line-clamp-1">
-										{post.description}
-									</p>
-								</div>
+							<div onClick={() => setActiveId(post.id)} className="cursor-pointer flex-1">
+								{renderPostContent(post)}
 							</div>
-							<motion.div layoutId={`button-${post.title}-${id}`}>
-								{post.content()}
-							</motion.div>
+							<div className="flex gap-2 mt-2 md:mt-0">
+								{post.content(setActiveId)}
+							</div>
 						</motion.div>
 					))}
 				</ul>
@@ -138,7 +147,7 @@ export function AdminPostViewer({ posts, onEdit, onDelete }: AdminPostViewerProp
 	);
 }
 
-export const CloseIcon = () => {
+export const CloseIcon = (): JSX.Element => {
 	return (
 		<motion.svg
 			initial={{
@@ -149,9 +158,9 @@ export const CloseIcon = () => {
 			}}
 			exit={{
 				opacity: 0,
-				transition: {
-					duration: 0.05,
-				},
+					transition: {
+						duration: 0.05,
+					},
 			}}
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"
@@ -162,7 +171,7 @@ export const CloseIcon = () => {
 			strokeWidth="2"
 			strokeLinecap="round"
 			strokeLinejoin="round"
-			className="h-4 w-4 text-black"
+			className="h-5 w-5 text-neutral-600 dark:text-neutral-400"
 		>
 			<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 			<path d="M18 6l-12 12" />

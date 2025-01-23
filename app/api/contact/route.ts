@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
 		await resend.emails.send({
 			from: 'onboarding@resend.dev',
-			to: 'trent.strum@gmail.com', // Replace with your email
+			to: 'trent.strum@joviancloudworks.com', // Replace with your email
 			subject: `New Contact Form Submission from ${name}`,
 			text: `
         Name: ${name}

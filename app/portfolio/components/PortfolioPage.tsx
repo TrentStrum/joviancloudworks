@@ -5,15 +5,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { UpcomingProjectCard } from '@/app/portfolio/components/upcoming-project-card';
 import { ExistingProjectCard } from '@/app/portfolio/components/existing-project-card';
 import { DotPattern } from '@/components/ui/dot-pattern';
-import { projectsData } from '@/lib/data/projects';
+import { useProjects } from '@/hooks/react-query/use-projects';
 
-// Existing Portfolio page with live and upcoming solutions tabs
-
-export default function PortfolioPage() {
-	const handleNotify = (email: string) => {
-		console.log('Notification requested:', email);
-		// In a real app, this would send to your backend
+export default function PortfolioPage(): JSX.Element {
+	const { data: projects, isLoading } = useProjects();
+	
+	const handleNotify = (email: string): void => {
+		// Handle notification logic
 	};
+
+	if (isLoading) return <div>Loading...</div>;
+
+	const existingProjects = projects?.filter(p => p.status === 'live' && p.pricing) ?? [];
+	const upcomingProjects = projects?.filter(p => p.status === 'upcoming') ?? [];
 
 	return (
 		<DotPattern className="py-20">
@@ -38,9 +42,9 @@ export default function PortfolioPage() {
 
 					<TabsContent value="existing">
 						<div className="grid gap-8 md:grid-cols-2">
-							{projectsData.existingProjects.map((project) => (
+							{existingProjects.map((project) => (
 								<motion.div
-									key={project.title}
+									key={project.id}
 									initial={{ opacity: 0, y: 20 }}
 									whileInView={{ opacity: 1, y: 0 }}
 									viewport={{ once: true }}
@@ -54,12 +58,13 @@ export default function PortfolioPage() {
 
 					<TabsContent value="upcoming">
 						<div className="grid gap-8 md:grid-cols-2">
-							{projectsData.upcomingProjects.map((project) => (
+							{upcomingProjects.map((project) => (
 								<motion.div
-									key={project.title}
+									key={project.id}
 									initial={{ opacity: 0, y: 20 }}
 									whileInView={{ opacity: 1, y: 0 }}
 									viewport={{ once: true }}
+									
 									className="h-full"
 								>
 									<UpcomingProjectCard {...project} onNotify={handleNotify} />

@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 :root {
-  /* Light theme - Updated with space-inspired greyish tones */
+  /* Light theme - Updated with deeper contrasts */
   --background: 220 25% 97%;
   --foreground: 220 25% 10%;
   --card: 220 25% 98%;
   --card-foreground: 220 25% 10%;
   --popover: 220 25% 98%;
   --popover-foreground: 220 25% 10%;
-  --primary: 220 70% 30%;
+  --primary: 222 85% 25%;
   --primary-foreground: 220 25% 98%;
   --secondary: 220 20% 92%;
   --secondary-foreground: 220 25% 12%;
   --muted: 220 20% 92%;
-  --muted-foreground: 220 15% 45%;
+  --muted-foreground: 220 25% 35%;
   --accent: 220 20% 92%;
   --accent-foreground: 220 25% 12%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
   --border: 220 20% 88%;
   --input: 220 20% 88%;
-  --ring: 220 70% 30%;
+  --ring: 222 85% 25%;
   --radius: 0.5rem;
 }
 
 .dark {
-  /* Keep dark theme exactly as is */
+  /* Dark theme colors unchanged */
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
   --card: 240 10% 3.9%;
@@ -60,7 +60,7 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 dark:from-blue-400 dark:via-purple-400 dark:to-orange-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-800 via-blue-900 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-orange-400;
   }
 
   .section-transition {

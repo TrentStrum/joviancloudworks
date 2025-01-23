@@ -1,50 +1,40 @@
 'use client';
 
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { BlogPost } from '@/types/blog.types';
+import { BackgroundGradient } from "@/components/ui/background-gradient";
+import { type BlogPost } from "@/types/blog.types";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface BlogFeatureCardProps {
 	post: BlogPost;
 }
 
-// active card for blog page
-
-export function BlogFeatureCard({ post }: BlogFeatureCardProps) {
+export function BlogFeatureCard({ post }: BlogFeatureCardProps): JSX.Element {
 	return (
-		<Card className={`p-4 sm:p-8 relative overflow-hidden`}>
-			<div className="space-y-4">
-				<h3 className="text-xl md:text-2xl font-medium tracking-tight">{post.title}</h3>
-				<p className="text-sm md:text-base text-muted-foreground">{post.excerpt}</p>
-				{post.coverImage && (
-					<div className="relative flex py-8 px-2 gap-10 h-full">
-						<div className="w-full p-5 mx-auto bg-background shadow-2xl group h-full">
-							<div className="flex flex-1 w-full h-full flex-col space-y-2">
-								<Link href={`/blog/${post.slug}`}>
-									<motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-										<Image
-											src={post.coverImage}
-											alt={post.title}
-											width={800}
-											height={800}
-											className="h-full w-full aspect-square object-cover object-center rounded-sm"
-										/>
-									</motion.div>
-								</Link>
-							</div>
-						</div>
+		<BackgroundGradient className="rounded-[22px] p-1 bg-background">
+			<Link href={`/blog/${post.id}`}>
+				<motion.div 
+					whileHover={{ scale: 1.02 }}
+					className="bg-background p-6 rounded-[20px] space-y-6"
+				>
+					<div className="relative w-full h-[400px] rounded-lg overflow-hidden">
+						<Image
+							src={post.image_url || post.coverImage || '/Jupiter.png'}
+							alt={post.title}
+							fill
+							className="object-cover"
+							priority
+						/>
 					</div>
-				)}
-
-				{post.category && (
-					<Badge variant="secondary" className="mt-4">
-						{post.category}
-					</Badge>
-				)}
-			</div>
-		</Card>
+					<div className="space-y-4">
+						<h3 className="text-2xl font-bold">{post.title}</h3>
+						<p className="text-muted-foreground line-clamp-3">
+							{post.shortDescription || post.excerpt}
+						</p>
+					</div>
+				</motion.div>
+			</Link>
+		</BackgroundGradient>
 	);
 }

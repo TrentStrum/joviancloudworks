@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/helpers/use-toast';
-import { useBlogPosts, useCreateBlogPost, useUpdateBlogPost, useDeleteBlogPost } from '@/hooks/react-query/use-blog';
+import { useBlogPostsList, useCreateBlogPost, useUpdateBlogPost, useDeleteBlogPost } from '@/hooks/react-query/use-blog';
 import type { BlogPost, BlogPostFormData } from '@/types/blog.types';
 import { AdminPostViewer } from '@/components/admin/admin-post-viewer';
 import { Switch } from "@/components/ui/switch"
@@ -14,11 +14,15 @@ import { Label } from "@/components/ui/label"
 import { Star, Eye } from 'lucide-react';
 import { PreviewModal } from './preview-modal';
 
+import { DeleteConfirmationModal } from './delete-confirmation-modal';
+import { BlogPostForm } from '@/app/blog/components/BlogPostForm';
+import { BlogContent } from '@/components/ui/blog-content';
+
 
 export function PostEditor(): JSX.Element {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const { toast } = useToast();
-  const { data, isLoading } = useBlogPosts({ sortBy: 'created_at' });
+  const { data, isLoading } = useBlogPostsList({ sortBy: 'created_at' });
 
   const createPostMutation = useCreateBlogPost();
   const updatePostMutation = useUpdateBlogPost(editingPost?.id?.toString() ?? '');
@@ -26,22 +30,14 @@ export function PostEditor(): JSX.Element {
 
   const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState<Partial<BlogPost>>({});
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const postData: BlogPostFormData = {
-      title: formData.get('title') as string,
-      content: formData.get('content') as string,
-      image_url: formData.get('image_url') as string || '/Jupiter.png',
-      featured: formData.get('featured') === 'on',
-    };
-
+  const handleSubmit = async (data: BlogPostFormData): Promise<void> => {
     try {
       if (editingPost?.id) {
-        await updatePostMutation.mutateAsync(postData);
+        await updatePostMutation.mutateAsync(data);
       } else {
-        await createPostMutation.mutateAsync(postData);
+        await createPostMutation.mutateAsync(data);
       }
 
       toast({
@@ -50,7 +46,6 @@ export function PostEditor(): JSX.Element {
         description: `Post ${editingPost ? 'updated' : 'created'} successfully`,
       });
 
-      (e.target as HTMLFormElement).reset();
       setEditingPost(null);
     } catch (error) {
       toast({
@@ -62,20 +57,25 @@ export function PostEditor(): JSX.Element {
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    if (!confirm('Are you sure you want to delete this post?')) return;
+    setDeleteId(id);
+  };
+
+  const handleConfirmDelete = async (): Promise<void> => {
+    if (!deleteId) return;
 
     try {
-      await deletePostMutation.mutateAsync(id);
+      await deletePostMutation.mutateAsync(deleteId);
       toast({
-        variant: "success",
-        title: "Success",
-        description: "Post deleted successfully",
+        title: 'Success',
+        description: 'Post deleted successfully',
+        variant: 'success',
       });
     } catch (error) {
+      console.error('Delete error:', error);
       toast({
-        variant: "destructive",
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to delete post",
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to delete post',
+        variant: 'destructive',
       });
     }
   };
@@ -91,32 +91,45 @@ export function PostEditor(): JSX.Element {
     });
   };
 
+  const handleEdit = (post: BlogPost): void => {
+    setEditingPost(post);
+    setFormData({
+      title: post.title,
+      content: post.content,
+      shortDescription: post.shortDescription || '',
+      category: post.category || '',
+      excerpt: post.excerpt || '',
+      featured: post.featured || false,
+      tags: post.tags || [],
+      image_url: post.image_url || '/Jupiter.png',
+    });
+  };
+
   if (isLoading) return <div>Loading...</div>;
 
   const blogPosts = data?.pages.flat() ?? [];
-  const formattedPosts = blogPosts.map(post => ({
+  const formattedPosts = blogPosts.map((post: BlogPost) => ({
     id: post.id,
-    description: post.content,
+    description: post.shortDescription || post.excerpt || post.content.slice(0, 150) + '...',
     titleText: post.title,
     title: (
       <div className="flex items-center gap-2">
-        {post.featured && (
-          <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-        )}
+        {post.featured && <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />}
         <span>{post.title}</span>
       </div>
     ),
     src: post.image_url || '/Jupiter.png',
     ctaText: 'View Details',
     ctaLink: '#',
-    content: () => (
+    content: (setActiveId: (id: string | number | null) => void) => (
       <div className="flex gap-2">
         <Button 
           variant="outline" 
           size="sm"
           onClick={(e) => {
             e.stopPropagation();
-            setEditingPost(post);
+            handleEdit(post);
+            setActiveId(null);
           }}
         >
           Edit
@@ -126,9 +139,11 @@ export function PostEditor(): JSX.Element {
           size="sm"
           onClick={(e) => {
             e.stopPropagation();
-            post.id && handleDelete(post.id.toString());
+            if (post.id) {
+              handleDelete(post.id.toString());
+            }
+            setActiveId(null);
           }}
-          disabled={deletePostMutation.isPending}
         >
           Delete
         </Button>
@@ -153,77 +168,14 @@ export function PostEditor(): JSX.Element {
             Preview
           </Button>
         </div>
-        <form 
-          onSubmit={handleSubmit} 
+        
+        <BlogPostForm 
+          post={editingPost}
+          onSubmit={handleSubmit}
           onChange={handleFormChange}
-          className="space-y-4"
-        >
-          <div className="space-y-2">
-            <label htmlFor="title" className="text-sm font-medium">
-              Title
-            </label>
-            <Input 
-              id="title"
-              name="title" 
-              placeholder="Post Title" 
-              defaultValue={editingPost?.title} 
-              required 
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="image_url" className="text-sm font-medium">
-              Image URL
-            </label>
-            <Input 
-              id="image_url"
-              name="image_url" 
-              placeholder="Image URL" 
-              defaultValue={editingPost?.image_url || '/Jupiter.png'} 
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="content" className="text-sm font-medium">
-              Content
-            </label>
-            <Textarea 
-              id="content"
-              name="content" 
-              placeholder="Post Content" 
-              defaultValue={editingPost?.content} 
-              required 
-            />
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="featured"
-              name="featured"
-              defaultChecked={editingPost?.featured}
-              className="border border-input dark:border-neutral-700 data-[state=unchecked]:bg-transparent [&>span]:bg-muted"
-            />
-            <Label htmlFor="featured">Featured Post</Label>
-          </div>
-
-          <div className="flex gap-2">
-            <Button 
-              type="submit"
-              disabled={createPostMutation.isPending || updatePostMutation.isPending}
-            >
-              {editingPost ? 'Update Post' : 'Create Post'}
-            </Button>
-            {editingPost && (
-              <Button 
-                type="button" 
-                variant="outline" 
-                onClick={() => setEditingPost(null)}
-              >
-                Cancel Edit
-              </Button>
-            )}
-          </div>
-        </form>
+          setEditingPost={setEditingPost}
+          key={editingPost?.id}
+        />
       </Card>
 
       <PreviewModal
@@ -240,6 +192,12 @@ export function PostEditor(): JSX.Element {
           onDelete={handleDelete} 
         />
       </div>
+
+      <DeleteConfirmationModal
+        isOpen={!!deleteId}
+        onClose={() => setDeleteId(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }

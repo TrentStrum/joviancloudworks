@@ -16,10 +16,10 @@ export const metadata: Metadata = {
 		'Transform your business with our cutting-edge cloud solutions. JovianCloudWorks delivers enterprise-grade cloud infrastructure and services.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={inter.className}>
+			<body className="flex flex-col min-h-screen">
 				<QueryProvider>
 					<ThemeProvider
 						attribute="class"
@@ -27,13 +27,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						enableSystem
 						disableTransitionOnChange
 					>
-						<div className="flex flex-col min-h-screen">
-							<NavigationWrapper />
-							<RouteConditionalWrapper />
-							<div className="star-field" />
-							<main className="flex-grow pt-16">{children}</main>
-							<Footer />
-						</div>
+						<NavigationWrapper />
+						<RouteConditionalWrapper />
+						<div className="star-field" />
+						<main className="flex-grow pt-16">{children}</main>
+						<Footer />
 						<Toaster />
 					</ThemeProvider>
 				</QueryProvider>

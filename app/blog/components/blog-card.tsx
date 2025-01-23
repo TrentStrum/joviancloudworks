@@ -17,7 +17,7 @@ interface BlogPostCardProps {
 
 export function BlogPostCard({ post, featured, compact }: BlogPostCardProps) {
 	return (
-		<Link href={`/blog/${post.slug}`}>
+		<Link href={`/blog/${post.id}`}>
 			<motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className="h-full">
 				<Card className="overflow-hidden h-full hover:shadow-lg transition-all duration-300">
 					<div

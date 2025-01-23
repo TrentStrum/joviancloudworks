@@ -9,6 +9,7 @@ export interface Database {
 					content: string;
 					author_id: string;
 					published: boolean;
+					featured: boolean;
 					updated_at: string | null;
 				};
 				Insert: {
@@ -18,6 +19,7 @@ export interface Database {
 					content: string;
 					author_id: string;
 					published?: boolean;
+					featured?: boolean;
 					updated_at?: string | null;
 				};
 				Update: {
@@ -27,6 +29,7 @@ export interface Database {
 					content?: string;
 					author_id?: string;
 					published?: boolean;
+					featured?: boolean;
 					updated_at?: string | null;
 				};
 			};

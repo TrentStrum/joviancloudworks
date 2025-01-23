@@ -19,8 +19,8 @@ interface ExistingProjectProps {
   images: { url: string; alt: string; }[];
   features: string[];
   technologies: string[];
-  pricing: PricingTier[];
-  demoUrl: string;
+  pricing?: PricingTier[];
+  demoUrl?: string;
 }
 
 export function ExistingProjectCard({
@@ -30,7 +30,7 @@ export function ExistingProjectCard({
   features = [],
   technologies = [],
   pricing = [],
-  demoUrl
+  demoUrl = '#'
 }: ExistingProjectProps): JSX.Element {
   return (
     <Card className="overflow-hidden h-full flex flex-col">

@@ -6,14 +6,13 @@ import { Button } from '@/components/ui/button';
 
 const socialLinks = [
   // { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Mail, href: '/contact', label: 'Email' }
+  { icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
+  // { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
 ];
 
 const quickLinks = [
   { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
   { label: 'Privacy', href: '/privacy' },
   { label: 'Terms', href: '/terms' },
   { label: 'Admin', href: '/admin/login', icon: Lock }

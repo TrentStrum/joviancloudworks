@@ -8,10 +8,10 @@ import { Home, Github, Instagram, Linkedin, Mail, ArrowUp, Moon, Sun } from 'luc
 import { useTheme } from 'next-themes';
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' }
+  // { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
+  // { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
 ];
 
 export function FloatingDock() {

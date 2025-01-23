@@ -3,7 +3,7 @@ import ContactForm from './components/contact';
 
 export default function Page(): JSX.Element {
 	return (
-		<div className="min-h-screen">
+		<div>
 			<ContactForm />
 		</div>
 	);

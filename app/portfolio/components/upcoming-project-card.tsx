@@ -15,10 +15,10 @@ interface UpcomingProjectProps {
   title: string;
   description: string;
   images: { url: string; alt: string; }[];
-  launchDate: string;
-  progress: number;
-  waitlistCount: number;
-  discount: number;
+  launchDate?: string;
+  progress?: number;
+  waitlistCount?: number;
+  discount?: number;
   onNotify: (email: string) => void;
 }
 
@@ -26,10 +26,10 @@ export function UpcomingProjectCard({
   title,
   description,
   images,
-  launchDate,
-  progress,
-  waitlistCount,
-  discount,
+  launchDate = 'Coming Soon',
+  progress = 0,
+  waitlistCount = 0,
+  discount = 0,
   onNotify
 }: UpcomingProjectProps) {
   const [email, setEmail] = useState('');

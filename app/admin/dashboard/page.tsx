@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PostEditor } from '@/components/admin/post-editor';
-import { FeatureEditor } from '@/components/admin/feature-editor';
+import { ProjectEditor } from '@/components/admin/project-editor';
 import { useSignOut } from '@/hooks/react-query/use-auth';
 
 export default function AdminDashboard(): JSX.Element {
@@ -27,13 +27,13 @@ export default function AdminDashboard(): JSX.Element {
 			<Tabs value={activeTab} onValueChange={setActiveTab}>
 				<TabsList>
 					<TabsTrigger value="posts">Blog Posts</TabsTrigger>
-					<TabsTrigger value="features">Feature Cards</TabsTrigger>
+					<TabsTrigger value="projects">Project Cards</TabsTrigger>
 				</TabsList>
 				<TabsContent value="posts">
 					<PostEditor />
 				</TabsContent>
-				<TabsContent value="features">
-					<FeatureEditor />
+				<TabsContent value="projects">
+					<ProjectEditor />
 				</TabsContent>
 			</Tabs>
 		</div>

@@ -4,7 +4,7 @@ export interface BlogPost {
 	content: string;
 	slug: string;
 	featured?: boolean;
-	highlighted?: boolean;
+	tags?: string[];
 	created_at: string;
 	updated_at: string;
 	published_at?: string;
@@ -32,4 +32,5 @@ export interface BlogPostFormData {
 	content: string;
 	image_url?: string;
 	featured: boolean;
+	tags?: string[];
 }

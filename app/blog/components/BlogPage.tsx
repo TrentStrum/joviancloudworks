@@ -1,146 +1,142 @@
 'use client';
 
-import { BlogPostCard } from '@/app/blog/components/blog-card';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useBlogPostsList } from '@/hooks/react-query/use-blog';
+import type { BlogPost } from '@/types/blog.types';
 import { BlogFeatureCard } from '@/app/blog/components/blog-feature-card';
 import { BlogPostSkeleton } from '@/components/skeletons/BlogPostSkeleton';
-import { Filters } from '@/app/blog/components/Filters';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useBlogPosts } from '@/hooks/react-query/use-blog';
-import { BlogPost } from '@/types/blog.types';
-import { Search, SlidersHorizontal, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Search, Sparkles } from 'lucide-react';
+import { HoverEffect } from '@/components/ui/card-hover-effect';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
+import { Badge } from '@/components/ui/badge';
 
-// active blog page
-
-export default function BlogPage() {
+export default function BlogPage(): JSX.Element {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [sortBy, setSortBy] = useState('newest');
-	const [showFilters, setShowFilters] = useState(false);
-
+	
 	const {
 		data: blogPosts,
 		isLoading,
 		isFetchingNextPage,
 		hasNextPage,
 		fetchNextPage,
-		refetch,
-	} = useBlogPosts({ searchTerm, sortBy });
+	} = useBlogPostsList({ searchTerm, sortBy });
 
-	const posts = blogPosts?.pages?.flat() || [];
-	const featuredPost = posts[0];
-	const remainingPosts = posts.slice(1);
-
-	// Group posts by category
-	const postsByCategory = remainingPosts.reduce<Record<string, BlogPost[]>>((acc, post) => {
-		const category = post.category || 'Uncategorized';
-		if (!acc[category]) {
-			acc[category] = [];
-		}
-		acc[category].push(post);
-		return acc;
-	}, {});
-
-	const handleSearch = (value: string) => {
-		setSearchTerm(value);
-		refetch();
-	};
-
-	const scrollCategory = (categoryId: string, direction: 'left' | 'right') => {
-		const container = document.getElementById(`category-${categoryId}`);
-		if (container) {
-			const scrollAmount = direction === 'left' ? -400 : 400;
-			container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-		}
-	};
+	const allPosts = blogPosts?.pages?.flat() || [];
+	const featuredPost = allPosts.find((post: BlogPost) => post.featured);
+	const regularPosts = allPosts.filter((post: BlogPost) => !post.featured);
 
 	return (
-		<div className="container py-8 space-y-12">
-			{/* Search and Filters */}
-			<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-				<h1 className="text-4xl font-bold">Blog</h1>
-				<div className="flex items-center gap-2 w-full sm:w-auto">
-					<div className="relative flex-1 sm:flex-initial">
-						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-						<Input
-							placeholder="Search posts..."
-							className="pl-9 w-full"
-							value={searchTerm}
-							onChange={(e) => handleSearch(e.target.value)}
-						/>
+		<div className="relative min-h-screen mx-4 sm:mx-8">
+			{/* Background Effects */}
+			<div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
+			<div className="absolute inset-0 bg-gradient-to-tr from-background/80 via-background to-background/80 -z-10" />
+
+			<div className="container max-w-7xl py-12 space-y-16 mx-auto">
+				{/* Header Section */}
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					className="space-y-4"
+				>
+					<div className="flex items-center gap-2">
+						<TextGenerateEffect words="Explore Our Universe of Ideas" />
+						<Sparkles className="h-6 w-6 text-yellow-500" />
 					</div>
-					<Button variant="outline" size="icon" onClick={() => setShowFilters(!showFilters)}>
-						<SlidersHorizontal className="h-4 w-4" />
-					</Button>
-				</div>
-			</div>
+					<p className="text-muted-foreground max-w-2xl">
+						Discover insights about cloud technology, development practices, and industry trends.
+					</p>
+				</motion.div>
 
-			{showFilters && <Filters sortBy={sortBy} setSortBy={setSortBy} />}
-
-			{isLoading ? (
-				<BlogPostSkeleton />
-			) : !posts.length ? (
-				<p className="text-center text-muted-foreground py-8">No posts found.</p>
-			) : (
-				<>
-					{/* Featured Post */}
-					{featuredPost && (
-						<section className="mb-12">
-							<BlogFeatureCard post={featuredPost} />
-						</section>
-					)}
-
-					{/* Posts by Category */}
-					{Object.entries(postsByCategory).map(([category, categoryPosts]) => (
-						<section key={category} className="space-y-4">
-							<div className="flex justify-between items-center">
-								<h2 className="text-2xl font-semibold">{category}</h2>
-								<div className="flex gap-2">
-									<Button
-										variant="outline"
-										size="icon"
-										onClick={() => scrollCategory(category, 'left')}
-									>
-										<ChevronLeft className="h-4 w-4" />
-									</Button>
-									<Button
-										variant="outline"
-										size="icon"
-										onClick={() => scrollCategory(category, 'right')}
-									>
-										<ChevronRight className="h-4 w-4" />
-									</Button>
-								</div>
-							</div>
-							<div className="relative">
-								<div
-									id={`category-${category}`}
-									className="flex overflow-x-auto gap-6 pb-4 scrollbar-hide snap-x snap-mandatory"
-								>
-									{categoryPosts.map((post) => (
-										<div key={post.id} className="min-w-[300px] md:min-w-[350px] snap-start">
-											<BlogPostCard post={post} />
-										</div>
-									))}
-								</div>
-							</div>
-						</section>
-					))}
-
-					{/* Load More Button */}
-					{hasNextPage && (
-						<div className="flex justify-center mt-8">
-							<Button
-								onClick={() => fetchNextPage()}
-								disabled={isFetchingNextPage}
-								variant="outline"
-							>
-								{isFetchingNextPage ? 'Loading more...' : 'Load More'}
-							</Button>
+				{/* Search Bar */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: 0.2 }}
+					className="relative max-w-xl"
+				>
+					<BackgroundGradient className="rounded-lg p-[1px]">
+						<div className="relative bg-background rounded-lg">
+							<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+							<Input
+								placeholder="Search the cosmos..."
+								className="pl-9 border-none focus-visible:ring-0"
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+							/>
 						</div>
-					)}
-				</>
-			)}
+					</BackgroundGradient>
+				</motion.div>
+
+				{isLoading ? (
+					<div className="space-y-8">
+						<BlogPostSkeleton />
+						<BlogPostSkeleton />
+					</div>
+				) : !allPosts.length ? (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						className="text-center py-12"
+					>
+						<h3 className="text-xl font-semibold mb-2">No posts found in this galaxy</h3>
+						<p className="text-muted-foreground">Try adjusting your search coordinates</p>
+					</motion.div>
+				) : (
+					<div className="space-y-16">
+						{/* Featured Post */}
+						{featuredPost && !searchTerm && (
+							<motion.section
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.3 }}
+							>
+								<div className="flex items-center gap-2 mb-6">
+									<Sparkles className="h-5 w-5 text-yellow-500" />
+									<h2 className="text-2xl font-semibold">Featured Discovery</h2>
+								</div>
+								<BlogFeatureCard post={featuredPost} />
+							</motion.section>
+						)}
+
+						{/* Regular Posts Grid */}
+						<motion.section
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ delay: 0.4 }}
+							className="space-y-8"
+						>
+							<h2 className="text-2xl font-semibold">
+								{searchTerm ? 'Search Results' : 'Latest Explorations'}
+							</h2>
+							<HoverEffect items={regularPosts.map(post => ({
+								title: post.title,
+								description: post.shortDescription || post.excerpt || '',
+								link: `/blog/${post.id}`,
+								image: post.image_url || post.coverImage || '/Jupiter.png',
+							}))} />
+						</motion.section>
+
+						{/* Load More */}
+						{hasNextPage && (
+							<div className="flex justify-center">
+								<Button
+									variant="outline"
+									onClick={() => fetchNextPage()}
+									disabled={isFetchingNextPage}
+									className="min-w-[200px] bg-gradient-to-r from-background to-background/80 hover:from-primary/20 hover:to-primary/20 transition-all duration-300"
+								>
+									{isFetchingNextPage ? 'Searching...' : 'Explore More'}
+								</Button>
+							</div>
+						)}
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }
