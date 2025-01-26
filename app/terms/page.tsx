@@ -43,7 +43,7 @@ export default function TermsPage() {
 						<section>
 							<h2 className="text-2xl font-semibold mb-4">Liability Limitations</h2>
 							<p className="text-muted-foreground">
-								Our services are provided "as is" without warranties. We are not liable for any
+								Our services are provided &quot;as is&quot; without warranties. We are not liable for any
 								damages arising from the use or inability to use our services.
 							</p>
 						</section>

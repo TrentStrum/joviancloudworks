@@ -1,16 +1,9 @@
 'use client';
 
-import { Github, Linkedin, Mail, Lock, Instagram } from 'lucide-react';
+
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-
-const socialLinks = [
-	// { icon: Github, href: 'https://github.com', label: 'GitHub' },
-	//{ icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
-	// { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-	//{ icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
-];
 
 const quickLinks = [
 	{ label: 'Privacy', href: '/privacy' },

@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 
-import { FloatingDock } from './FloatingDock';
 
 export function RouteConditionalWrapper(): JSX.Element | null {
 	const pathname = usePathname();

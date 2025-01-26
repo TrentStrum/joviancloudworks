@@ -1,7 +1,4 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-
-import { Metadata } from 'next';
 
 import { Footer } from '@/components/layout/footer';
 import { NavigationWrapper } from '@/components/layout/NavigationWrapper';
@@ -9,8 +6,6 @@ import { RouteConditionalWrapper } from '@/components/layout/RouteConditionalWra
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/providers/query-provider';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
 	title: 'JovianCloudWorks - Saas Solutions for the Future',

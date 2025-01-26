@@ -1,37 +1,8 @@
 'use client';
 
-import { Home, Rocket, Mail, BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-
-const routes = [
-	{
-		href: '/',
-		label: 'Home',
-		icon: Home,
-	},
-	{
-		href: '/portfolio',
-		label: 'Portfolio',
-		icon: Rocket,
-	},
-	{
-		href: '/blog',
-		label: 'Blog',
-		icon: BookOpen,
-	},
-	{
-		href: '/contact',
-		label: 'Contact',
-		icon: Mail,
-	},
-];
 
 export function NavBar() {
-	const pathname = usePathname();
 
 	return (
 		<nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b">

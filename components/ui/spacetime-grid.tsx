@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 
 interface SpacetimeGridProps {
 	children: React.ReactNode;

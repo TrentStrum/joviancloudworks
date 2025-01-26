@@ -6,8 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useState, useEffect, useRef } from 'react';
-import { useInView } from 'react-intersection-observer';
-
+	
 import { FloatingDots } from '../ui/floating-dots';
 
 import { Badge } from '@/components/ui/badge';

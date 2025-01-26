@@ -57,7 +57,7 @@ export function FeatureModal({ open, onOpenChange, features, onNotify }: Feature
 					{isSubscribed ? (
 						<Button variant="outline" disabled className="w-full">
 							<Bell className="mr-2 h-4 w-4" />
-							You'll be notified of updates!
+							You&apos;ll be notified of updates!
 						</Button>
 					) : (
 						<div className="flex gap-2">

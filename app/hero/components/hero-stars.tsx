@@ -1,13 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Rocket } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 
-import { MovingBorder } from '@/components/ui/moving-border';
 import { ShootingStars } from '@/components/ui/shooting-stars';
-import { SpacetimeGrid } from '@/components/ui/spacetime-grid';
 import { StarsBackground } from '@/components/ui/stars-background';
 
 export function HeroStars(): JSX.Element {

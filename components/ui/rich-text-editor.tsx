@@ -1,10 +1,7 @@
 'use client';
 
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
 import dynamic from 'next/dynamic';
 
-import { cn } from '@/lib/utils';
 
 interface RichTextEditorProps {
 	value: string;

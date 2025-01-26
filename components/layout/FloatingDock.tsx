@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Github, Instagram, Linkedin, Mail, ArrowUp, Moon, Sun } from 'lucide-react';
+import { Instagram, Mail, ArrowUp, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 

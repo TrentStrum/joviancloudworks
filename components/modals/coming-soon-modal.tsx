@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
+import Image from 'next/image';
 
 interface ComingSoonModalProps {
 	open: boolean;
@@ -90,7 +91,7 @@ const sections = [
 						transition={{ delay: index * 0.2 }}
 						className="rounded-3xl overflow-hidden"
 					>
-						<img src={image.url} alt={image.alt} className="w-full h-auto object-cover" />
+						<Image src={image.url} alt={image.alt} className="w-full h-auto object-cover" />
 					</motion.div>
 				))}
 			</div>
@@ -134,7 +135,7 @@ export function ComingSoonModal({ open, onOpenChange, project, onNotify }: Comin
 						{isSubscribed ? (
 							<Button variant="outline" disabled className="w-full">
 								<Bell className="mr-2 h-4 w-4" />
-								You're on the waitlist!
+								You&apos;re on the waitlist!
 							</Button>
 						) : (
 							<div className="flex gap-2">
