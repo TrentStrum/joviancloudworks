@@ -14,9 +14,10 @@ import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 
 interface UpcomingProjectProps {
+	id: string;
 	title: string;
 	description: string;
-	images: { url: string; alt: string }[];
+	images?: string[];
 	launchDate?: string;
 	progress?: number;
 	waitlistCount?: number;
@@ -25,6 +26,7 @@ interface UpcomingProjectProps {
 }
 
 export function UpcomingProjectCard({
+	id,
 	title,
 	description,
 	images,
@@ -53,7 +55,7 @@ export function UpcomingProjectCard({
 		<>
 			<Card className="overflow-hidden h-full flex flex-col">
 				<div className="aspect-video">
-					<ImageCarousel images={images} />
+					<ImageCarousel images={images?.map((url) => ({ url, alt: title })) || []} />
 				</div>
 
 				<div className="p-6 flex flex-col flex-grow">

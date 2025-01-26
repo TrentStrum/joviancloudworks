@@ -17,8 +17,8 @@ export default function PortfolioPage(): JSX.Element {
 
 	if (isLoading) return <div>Loading...</div>;
 
-	const existingProjects = projects?.filter((p) => p.status === 'live' && p.pricing) ?? [];
-	const upcomingProjects = projects?.filter((p) => p.status === 'upcoming') ?? [];
+	const existingProjects = projects?.filter((p) => p.status === 'published') ?? [];
+	const upcomingProjects = projects?.filter((p) => p.status === 'draft') ?? [];
 
 	return (
 		<DotPattern className="py-20">

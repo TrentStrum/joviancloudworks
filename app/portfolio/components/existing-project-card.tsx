@@ -15,38 +15,31 @@ interface PricingTier {
 }
 
 interface ExistingProjectProps {
+	id: string;
 	title: string;
 	description: string;
-	images: { url: string; alt: string }[];
-	features: string[];
+	images?: string[];
+	features?: string[];
 	technologies: string[];
 	pricing?: PricingTier[];
 	demoUrl?: string;
 }
 
-export function ExistingProjectCard({
-	title,
-	description,
-	images = [],
-	features = [],
-	technologies = [],
-	pricing = [],
-	demoUrl = '#',
-}: ExistingProjectProps): JSX.Element {
+export function ExistingProjectCard(props: ExistingProjectProps): JSX.Element {
 	return (
 		<Card className="overflow-hidden h-full flex flex-col">
 			<div className="aspect-video">
-				<ImageCarousel images={images} />
+				<ImageCarousel images={props.images?.map((url) => ({ url, alt: props.title })) || []} />
 			</div>
 
 			<div className="p-6 flex flex-col flex-grow">
 				<div className="mb-6">
-					<h3 className="text-xl font-semibold mb-2">{title}</h3>
-					<p className="text-muted-foreground">{description}</p>
+					<h3 className="text-xl font-semibold mb-2">{props.title}</h3>
+					<p className="text-muted-foreground">{props.description}</p>
 				</div>
 
 				<div className="flex flex-wrap gap-2 mb-6">
-					{technologies?.map((tech) => (
+					{props.technologies?.map((tech) => (
 						<Badge key={tech} variant="secondary">
 							{tech}
 						</Badge>
@@ -54,7 +47,7 @@ export function ExistingProjectCard({
 				</div>
 
 				<div className="space-y-2 mb-6">
-					{features.map((feature) => (
+					{props.features?.map((feature) => (
 						<div key={feature} className="flex items-center gap-2">
 							<Check className="h-4 w-4 text-green-500 flex-shrink-0" />
 							<span className="text-sm">{feature}</span>
@@ -63,7 +56,7 @@ export function ExistingProjectCard({
 				</div>
 
 				<div className="mt-auto space-y-4">
-					{pricing.map((tier) => (
+					{props.pricing?.map((tier) => (
 						<div key={tier.name} className="p-4 rounded-lg border">
 							<div className="flex justify-between items-center mb-2">
 								<h4 className="font-semibold">{tier.name}</h4>
@@ -81,7 +74,7 @@ export function ExistingProjectCard({
 								))}
 							</ul>
 							<Button className="w-full" asChild>
-								<a href={demoUrl} target="_blank" rel="noopener noreferrer">
+								<a href={props.demoUrl || '#'} target="_blank" rel="noopener noreferrer">
 									Subscribe Now
 								</a>
 							</Button>
