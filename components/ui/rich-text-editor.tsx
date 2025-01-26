@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-
 interface RichTextEditorProps {
 	value: string;
 	onValueChange: (value: string) => void;
@@ -20,4 +19,3 @@ export function RichTextEditor({ value, onValueChange }: RichTextEditorProps): J
 	);
 	return <RichTextEditorCore value={value} onValueChange={onValueChange} />;
 }
-

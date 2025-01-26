@@ -11,6 +11,9 @@ export const metadata = {
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
 	description: 'Transform your business with our cutting-edge saas solutions.',
 	metadataBase: new URL('https://joviancloudworks.io'),
+	icons: {
+		icon: '/favicon.ico',
+	},
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {

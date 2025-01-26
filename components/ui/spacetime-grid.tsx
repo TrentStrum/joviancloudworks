@@ -1,6 +1,5 @@
 'use client';
 
-
 interface SpacetimeGridProps {
 	children: React.ReactNode;
 	className?: string;

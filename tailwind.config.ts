@@ -1,10 +1,17 @@
-import type { Config } from 'tailwindcss';
+import type { Config, PluginAPI } from 'tailwindcss';
 
-const svgToDataUri = require('mini-svg-data-uri');
-const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
+import svgToDataUri from 'mini-svg-data-uri';
+import { default as flattenColorPalette } from 'tailwindcss/lib/util/flattenColorPalette';
+import animate from 'tailwindcss-animate';
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
-function addVariablesForColors({ addBase, theme }: any) {
+function addVariablesForColors({
+	addBase,
+	theme,
+}: {
+	addBase: (base: Record<string, Record<string, string>>) => void;
+	theme: (path: string) => Record<string, string>;
+}) {
 	const allColors = flattenColorPalette(theme('colors'));
 	const newVars = Object.fromEntries(
 		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
@@ -79,12 +86,12 @@ const config: Config = {
 		},
 	},
 	plugins: [
-		require('tailwindcss-animate'),
+		animate,
 		addVariablesForColors,
-		function ({ matchUtilities, theme }: any) {
+		function ({ matchUtilities, theme }: PluginAPI) {
 			matchUtilities(
 				{
-					'bg-dot-thick': (value: any) => ({
+					'bg-dot-thick': (value: string) => ({
 						backgroundImage: `url("${svgToDataUri(
 							`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="2.5"></circle></svg>`
 						)}")`,

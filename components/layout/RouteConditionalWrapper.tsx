@@ -2,10 +2,9 @@
 
 import { usePathname } from 'next/navigation';
 
-
 export function RouteConditionalWrapper(): JSX.Element | null {
 	const pathname = usePathname();
-	
+
 	if (typeof pathname !== 'string') {
 		return null;
 	}

@@ -3,7 +3,6 @@
 import Link from 'next/link';
 
 export function NavBar() {
-
 	return (
 		<nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b">
 			<div className="container mx-auto px-4">

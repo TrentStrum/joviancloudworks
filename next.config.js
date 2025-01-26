@@ -6,6 +6,7 @@ const nextConfig = {
 	experimental: {
 		serverActions: true,
 	},
+	productionBrowserSourceMaps: true,
 	// Remove any edge runtime configurations
 };
 

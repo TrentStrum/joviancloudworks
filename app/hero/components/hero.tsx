@@ -43,10 +43,7 @@ export function LandingHeroSection(): JSX.Element {
 					</p>
 					<div className="flex flex-wrap justify-center gap-4">
 						<Link href="/portfolio">
-							<Button
-								size="lg"
-								className="bg-space-blue hover:bg-space-blue/90 transition-colors"
-							>
+							<Button size="lg" className="bg-space-blue hover:bg-space-blue/90 transition-colors">
 								<Rocket className="mr-2 h-4 w-4" />
 								Explore Our Portfolio
 							</Button>
