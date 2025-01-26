@@ -13,25 +13,13 @@ import { QueryProvider } from '@/providers/query-provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://joviancloudworks.com'),
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
-	description:
-		'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
+	description: 'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
 	openGraph: {
-		type: 'website',
 		title: 'JovianCloudWorks',
-		description: 'Transform your business with our cutting-edge saas solutions',
-		url: process.env.NEXT_PUBLIC_SITE_URL || 'https://joviancloudworks.com',
+		description: 'Enterprise-grade saas infrastructure and services',
+		url: 'https://joviancloudworks.com',
 		siteName: 'JovianCloudWorks',
-		locale: 'en_US',
-		images: [
-			{
-				url: '/og-image.png',
-				width: 1200,
-				height: 630,
-				alt: 'JovianCloudWorks - Enterprise SaaS Solutions',
-			},
-		],
 	},
 };
 
