@@ -3,7 +3,7 @@
 import { useMotionValueEvent, useScroll, useTransform, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 
-import type { TimelineEntry } from '@/lib/types/timeline';
+import type { TimelineEntry } from '@/types/database.types';
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 	const ref = useRef<HTMLDivElement>(null);
