@@ -16,6 +16,21 @@ export const metadata: Metadata = {
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
 	description:
 		'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
+	openGraph: {
+		title: 'JovianCloudWorks',
+		description: 'Enterprise-grade saas infrastructure and services',
+		url: 'https://joviancloudworks.com',
+		siteName: 'JovianCloudWorks',
+		images: [
+			{
+				url: '/og-image.png',
+				width: 1200,
+				height: 630,
+			},
+		],
+		locale: 'en_US',
+		type: 'website',
+	},
 };
 
 export const dynamic = 'force-dynamic';

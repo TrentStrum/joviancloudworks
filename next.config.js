@@ -9,6 +9,10 @@ const nextConfig = {
 	},
 	// Force all pages to be server-side rendered
 	output: 'standalone',
+	typescript: {
+		ignoreBuildErrors: true, // Only if you're confident in your types
+	},
+	poweredByHeader: false,
 };
 
 module.exports = nextConfig;

@@ -1,11 +1,20 @@
 export const dynamic = 'force-dynamic';
 
+import { rateLimit } from '@/lib/rate-limit';
 import { Resend } from 'resend';
+
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const limiter = rateLimit({
+	interval: 60 * 1000, // 1 minute
+	uniqueTokenPerInterval: 500,
+});
+
 export async function POST(request: Request) {
 	try {
+		await limiter.check(5, 'CONTACT_FORM'); // 5 requests per minute
+
 		const { name, email, company, message } = await request.json();
 
 		if (!process.env.RESEND_API_KEY) {
