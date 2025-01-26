@@ -1,5 +1,5 @@
-import { HeroStars } from '@/app/hero/components/hero-stars';
+import { HeroSection } from './components/hero-section';
 
-export function HeroSection() {
-	return <HeroStars />;
+export default function HeroPage(): JSX.Element {
+	return <HeroSection />;
 }

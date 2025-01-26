@@ -18,6 +18,9 @@ export const metadata: Metadata = {
 		'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
 };
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<html lang="en" suppressHydrationWarning>

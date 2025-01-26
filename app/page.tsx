@@ -1,9 +1,8 @@
 import FeaturedPostSection from './(featured)/post/page';
 import FeaturedSolutionSection from './(featured)/solution/page';
 import ContactSection from './contact/page';
-import { HeroSection } from './hero/page';
-
 import { SectionDivider } from '@/components/layout/section-divider';
+import { HeroSection } from './hero/components/hero-section';
 
 export default function Home(): JSX.Element {
 	return (
@@ -12,5 +11,5 @@ export default function Home(): JSX.Element {
 				<HeroSection />
 			</section>
 		</main>
-	);
-}
+		);
+	}
