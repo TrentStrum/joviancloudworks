@@ -6,10 +6,15 @@ import { FloatingDock } from './FloatingDock';
 
 export function RouteConditionalWrapper(): JSX.Element | null {
 	const pathname = usePathname();
+	
+	if (typeof pathname !== 'string') {
+		return null;
+	}
+
 	const isAdminRoute = pathname.startsWith('/admin');
 
 	if (isAdminRoute) {
-		return null;
+		return <div className="admin-wrapper">{/* Admin specific content */}</div>;
 	}
 
 	return null; // floating dock goes here
