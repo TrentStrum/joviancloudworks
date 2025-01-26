@@ -13,10 +13,8 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-	{ label: 'About', href: '/about' },
 	{ label: 'Privacy', href: '/privacy' },
 	{ label: 'Terms', href: '/terms' },
-	{ label: 'Admin', href: '/admin/login', icon: Lock },
 ];
 
 export function Footer() {
@@ -47,17 +45,14 @@ export function Footer() {
 
 				{/* Quick Links */}
 				<div className="flex justify-center flex-wrap gap-8 mb-4">
-					{quickLinks.map(({ label, href, icon: Icon }) => (
+					{quickLinks.map(({ label, href }) => (
 						<Button
 							key={href}
 							variant="ghost"
 							asChild
 							className="relative after:absolute after:inset-0 after:border-2 after:border-transparent hover:after:border-primary/50 after:rounded-md after:transition-all after:duration-300"
 						>
-							<Link href={href}>
-								{Icon && <Icon className="h-4 w-4 mr-2" />}
-								{label}
-							</Link>
+							<Link href={href}>{label}</Link>
 						</Button>
 					))}
 				</div>

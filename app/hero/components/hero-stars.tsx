@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Rocket } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 
@@ -12,7 +11,6 @@ import { SpacetimeGrid } from '@/components/ui/spacetime-grid';
 import { StarsBackground } from '@/components/ui/stars-background';
 
 export function HeroStars(): JSX.Element {
-	const router = useRouter();
 	const [mounted, setMounted] = useState(false);
 	const { theme } = useTheme();
 
@@ -20,7 +18,10 @@ export function HeroStars(): JSX.Element {
 		setMounted(true);
 	}, []);
 
-	const isDark = mounted && theme === 'dark';
+	// Don't render anything until mounted
+	if (!mounted) return <div className="min-h-[80vh]" />;
+
+	const isDark = theme === 'dark';
 
 	return (
 		<div className="min-h-[80vh] relative flex flex-col items-center justify-center overflow-hidden bg-background dark:bg-gradient-to-b dark:from-background dark:to-background/80">

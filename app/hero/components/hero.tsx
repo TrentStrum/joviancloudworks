@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Rocket, Users, Cloud } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -25,17 +25,7 @@ const metrics = [
 	},
 ];
 
-export function LandingHeroSection() {
-	const router = useRouter();
-
-	const handleExplore = () => {
-		router.push('/portfolio');
-	};
-
-	const handleSubmitIdea = () => {
-		router.push('/contact');
-	};
-
+export function LandingHeroSection(): JSX.Element {
 	return (
 		<section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
 			<div className="container px-4 mx-auto">
@@ -52,23 +42,25 @@ export function LandingHeroSection() {
 						Elevate your business with cutting-edge cloud solutions that drive innovation and growth
 					</p>
 					<div className="flex flex-wrap justify-center gap-4">
-						<Button
-							size="lg"
-							className="bg-space-blue hover:bg-space-blue/90 transition-colors"
-							onClick={handleExplore}
-						>
-							<Rocket className="mr-2 h-4 w-4" />
-							Explore Our Portfolio
-						</Button>
-						<Button
-							size="lg"
-							variant="outline"
-							className="hover:bg-secondary transition-colors text-gray-800 dark:text-inherit"
-							onClick={handleSubmitIdea}
-						>
-							<Cloud className="mr-2 h-4 w-4" />
-							Submit Your Idea
-						</Button>
+						<Link href="/portfolio">
+							<Button
+								size="lg"
+								className="bg-space-blue hover:bg-space-blue/90 transition-colors"
+							>
+								<Rocket className="mr-2 h-4 w-4" />
+								Explore Our Portfolio
+							</Button>
+						</Link>
+						<Link href="/contact">
+							<Button
+								size="lg"
+								variant="outline"
+								className="hover:bg-secondary transition-colors text-gray-800 dark:text-inherit"
+							>
+								<Cloud className="mr-2 h-4 w-4" />
+								Submit Your Idea
+							</Button>
+						</Link>
 					</div>
 				</motion.div>
 

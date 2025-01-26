@@ -13,12 +13,13 @@ import { QueryProvider } from '@/providers/query-provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+	metadataBase: new URL('https://joviancloudworks.io'),
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
 	description: 'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
 	openGraph: {
 		title: 'JovianCloudWorks',
 		description: 'Enterprise-grade saas infrastructure and services',
-		url: 'https://joviancloudworks.com',
+		url: 'https://joviancloudworks.io',
 		siteName: 'JovianCloudWorks',
 	},
 };
