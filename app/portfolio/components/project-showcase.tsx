@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+
 import { cn } from '@/lib/utils';
 
 interface ProjectShowcaseProps {
@@ -43,14 +44,11 @@ export function ProjectShowcase({ title, subtitle, screens }: ProjectShowcasePro
 								const offset = index - centerIndex;
 								const defaultX = offset * -100; // More spread in default state
 								const focusedX = offset * 160; // More spread in focused state
-								
+
 								return (
 									<motion.div
 										key={index}
-										className={cn(
-											'absolute top-1/2 -translate-y-1/2',
-											'group cursor-pointer'
-										)}
+										className={cn('absolute top-1/2 -translate-y-1/2', 'group cursor-pointer')}
 										style={{
 											left: '50%',
 											width: 'min(400px, 80vw)',
@@ -88,10 +86,10 @@ export function ProjectShowcase({ title, subtitle, screens }: ProjectShowcasePro
 												/>
 
 												{/* Overlay and title */}
-												<div 
+												<div
 													className={cn(
-														"absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent",
-														"opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+														'absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent',
+														'opacity-0 group-hover:opacity-100 transition-opacity duration-300'
 													)}
 												>
 													<div className="absolute bottom-0 left-0 right-0 p-4">

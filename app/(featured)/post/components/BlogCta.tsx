@@ -1,12 +1,14 @@
 'use client';
 
-import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
-import { MovingBorder } from '@/components/ui/moving-border';
-import { ArrowRight, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import type { BlogPost } from '@/types/blog.types';
 import { useTheme } from 'next-themes';
+
+import type { BlogPost } from '@/types/blog.types';
+
+import { MovingBorder } from '@/components/ui/moving-border';
+import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
 
 interface BlogCtaProps {
 	post: BlogPost;
@@ -15,7 +17,7 @@ interface BlogCtaProps {
 export function BlogCta({ post }: BlogCtaProps): JSX.Element {
 	const router = useRouter();
 	const { theme } = useTheme();
-	const isDark = theme === "dark";
+	const isDark = theme === 'dark';
 
 	return (
 		<div className="flex flex-col items-center justify-center h-[40rem]">
@@ -33,8 +35,8 @@ export function BlogCta({ post }: BlogCtaProps): JSX.Element {
 				transition={{ duration: 0.5, delay: 0.2 }}
 				className="mb-8"
 			>
-				<TypewriterEffectSmooth 
-					words={[{ text: post.title }]} 
+				<TypewriterEffectSmooth
+					words={[{ text: post.title }]}
 					className="text-4xl font-bold text-primary dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-blue-400 dark:via-purple-400 dark:to-orange-400"
 				/>
 			</motion.div>

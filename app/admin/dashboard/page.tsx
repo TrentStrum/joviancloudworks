@@ -1,10 +1,11 @@
-"use client"
+'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 import { PostEditor } from '@/components/admin/post-editor';
 import { ProjectEditor } from '@/components/admin/project-editor';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSignOut } from '@/hooks/react-query/use-auth';
 
 export default function AdminDashboard(): JSX.Element {
@@ -15,8 +16,8 @@ export default function AdminDashboard(): JSX.Element {
 		<div>
 			<div className="flex justify-between items-center mb-8">
 				<h1 className="text-3xl font-bold">Admin Dashboard</h1>
-				<Button 
-					variant="outline" 
+				<Button
+					variant="outline"
 					onClick={() => signOutMutation.mutate()}
 					disabled={signOutMutation.isPending}
 				>

@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+
 import type { Project } from '@/types/portfolio.types';
+
 import { apiClient } from '@/lib/apiClient';
 
 export function useProjects() {

@@ -1,29 +1,30 @@
-"use client"
+'use client';
 
-import Link from 'next/link';
 import { Github, Twitter, Linkedin, Mail, Lock, Instagram } from 'lucide-react';
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 
 const socialLinks = [
-  // { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  //{ icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
-  // { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  //{ icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
+	// { icon: Github, href: 'https://github.com', label: 'GitHub' },
+	//{ icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
+	// { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+	//{ icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
 ];
 
 const quickLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Terms', href: '/terms' },
-  { label: 'Admin', href: '/admin/login', icon: Lock }
+	{ label: 'About', href: '/about' },
+	{ label: 'Privacy', href: '/privacy' },
+	{ label: 'Terms', href: '/terms' },
+	{ label: 'Admin', href: '/admin/login', icon: Lock },
 ];
 
 export function Footer() {
-  return (
-    <footer className="border-t bg-background/80 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-4">
-        {/* Social Media Icons */}
-        <div className="flex justify-center space-x-6 mb-4">
+	return (
+		<footer className="border-t bg-background/80 backdrop-blur-sm">
+			<div className="container mx-auto px-4 py-4">
+				{/* Social Media Icons */}
+				{/* <div className="flex justify-center space-x-6 mb-4">
           {socialLinks.map(({ icon: Icon, href, label }) => (
             <Button
               key={href}
@@ -42,30 +43,30 @@ export function Footer() {
               </a>
             </Button>
           ))}
-        </div>
+        </div> */}
 
-        {/* Quick Links */}
-        <div className="flex justify-center flex-wrap gap-8 mb-4">
-          {quickLinks.map(({ label, href, icon: Icon }) => (
-            <Button
-              key={href}
-              variant="ghost"
-              asChild
-              className="relative after:absolute after:inset-0 after:border-2 after:border-transparent hover:after:border-primary/50 after:rounded-md after:transition-all after:duration-300"
-            >
-              <Link href={href}>
-                {Icon && <Icon className="h-4 w-4 mr-2" />}
-                {label}
-              </Link>
-            </Button>
-          ))}
-        </div>
+				{/* Quick Links */}
+				<div className="flex justify-center flex-wrap gap-8 mb-4">
+					{quickLinks.map(({ label, href, icon: Icon }) => (
+						<Button
+							key={href}
+							variant="ghost"
+							asChild
+							className="relative after:absolute after:inset-0 after:border-2 after:border-transparent hover:after:border-primary/50 after:rounded-md after:transition-all after:duration-300"
+						>
+							<Link href={href}>
+								{Icon && <Icon className="h-4 w-4 mr-2" />}
+								{label}
+							</Link>
+						</Button>
+					))}
+				</div>
 
-        {/* Copyright */}
-        <div className="text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} JovianCloudWorks. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
+				{/* Copyright */}
+				<div className="text-center text-sm text-muted-foreground">
+					<p>© {new Date().getFullYear()} JovianCloudWorks. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+	);
 }

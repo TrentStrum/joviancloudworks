@@ -1,9 +1,12 @@
 'use client';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { useEffect, useId, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+
 import { useOutsideClick } from './outside-click';
+
 import type { BlogPost } from '@/types/blog.types';
+
 import { Card } from '@/components/ui/card';
 
 interface AdminPostViewerProps {
@@ -26,7 +29,7 @@ export function AdminPostViewer({ posts }: AdminPostViewerProps): JSX.Element {
 	const ref = useRef<HTMLDivElement>(null);
 	const id = useId();
 
-	const active = posts.find(post => post.id === activeId);
+	const active = posts.find((post) => post.id === activeId);
 
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent) {
@@ -56,7 +59,9 @@ export function AdminPostViewer({ posts }: AdminPostViewerProps): JSX.Element {
 						height={isModal ? 400 : 56}
 						src={post.src}
 						alt={post.titleText}
-						className={isModal ? 'w-full h-[300px] object-cover rounded-t-xl' : 'rounded-lg object-cover'}
+						className={
+							isModal ? 'w-full h-[300px] object-cover rounded-t-xl' : 'rounded-lg object-cover'
+						}
 						priority={isModal}
 					/>
 				</div>
@@ -66,25 +71,19 @@ export function AdminPostViewer({ posts }: AdminPostViewerProps): JSX.Element {
 							<div className="mt-6">
 								<motion.h3
 									layoutId={`title-${post.id}-${id}`}
-										className="text-2xl font-semibold mb-3"
+									className="text-2xl font-semibold mb-3"
 								>
 									{post.title}
 								</motion.h3>
-								<p className="text-muted-foreground text-base">
-									{post.description}
-								</p>
+								<p className="text-muted-foreground text-base">{post.description}</p>
 							</div>
 						</div>
-						<div className="mt-6 px-6 pb-6">
-							{post.content(setActiveId)}
-						</div>
+						<div className="mt-6 px-6 pb-6">{post.content(setActiveId)}</div>
 					</>
 				) : (
 					<div>
 						<h3 className="font-medium">{post.title}</h3>
-						<p className="text-sm text-muted-foreground line-clamp-1">
-							{post.description}
-						</p>
+						<p className="text-sm text-muted-foreground line-clamp-1">{post.description}</p>
 					</div>
 				)}
 			</div>
@@ -115,9 +114,7 @@ export function AdminPostViewer({ posts }: AdminPostViewerProps): JSX.Element {
 									>
 										<CloseIcon />
 									</button>
-									<div className="overflow-y-auto">
-										{renderPostContent(active, true)}
-									</div>
+									<div className="overflow-y-auto">{renderPostContent(active, true)}</div>
 								</div>
 							</motion.div>
 						</div>
@@ -136,9 +133,7 @@ export function AdminPostViewer({ posts }: AdminPostViewerProps): JSX.Element {
 							<div onClick={() => setActiveId(post.id)} className="cursor-pointer flex-1">
 								{renderPostContent(post)}
 							</div>
-							<div className="flex gap-2 mt-2 md:mt-0">
-								{post.content(setActiveId)}
-							</div>
+							<div className="flex gap-2 mt-2 md:mt-0">{post.content(setActiveId)}</div>
 						</motion.div>
 					))}
 				</ul>
@@ -158,9 +153,9 @@ export const CloseIcon = (): JSX.Element => {
 			}}
 			exit={{
 				opacity: 0,
-					transition: {
-						duration: 0.05,
-					},
+				transition: {
+					duration: 0.05,
+				},
 			}}
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"

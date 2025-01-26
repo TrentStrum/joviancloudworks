@@ -2,6 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+
 import { apiClient } from '@/lib/apiClient';
 
 export function useSignOut() {
@@ -18,4 +19,4 @@ export function useSignOut() {
 			console.error('Sign out failed:', error);
 		},
 	});
-} 
+}

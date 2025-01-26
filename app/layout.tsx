@@ -1,12 +1,14 @@
 import './globals.css';
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/toaster';
+
+import type { Metadata } from 'next';
+
 import { Footer } from '@/components/layout/footer';
 import { NavigationWrapper } from '@/components/layout/NavigationWrapper';
-import { QueryProvider } from '@/providers/query-provider';
 import { RouteConditionalWrapper } from '@/components/layout/RouteConditionalWrapper';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
+import { QueryProvider } from '@/providers/query-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +21,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			
 			<body className="flex flex-col min-h-screen">
 				<QueryProvider>
 					<ThemeProvider

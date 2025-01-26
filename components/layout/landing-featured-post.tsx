@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Moon, Sun, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Moon, Sun, ChevronRight } from 'lucide-react';
+
 import { FloatingDots } from '../ui/floating-dots';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 interface FeaturedBlogPostProps {
 	title: string;
@@ -52,7 +54,11 @@ export default function FeaturedBlogPost({
 	const fallbackImageUrl = '/placeholder.svg?height=400&width=800';
 
 	return (
-		<motion.div ref={elementRef} style={{ opacity }} className="relative w-full max-w-4xl mx-auto p-8">
+		<motion.div
+			ref={elementRef}
+			style={{ opacity }}
+			className="relative w-full max-w-4xl mx-auto p-8"
+		>
 			<motion.div
 				initial={{ perspective: 1000 }}
 				whileHover={{
@@ -129,7 +135,7 @@ export default function FeaturedBlogPost({
 											>
 												{tag}
 											</Badge>
-										))
+									  ))
 									: null}
 							</motion.div>
 						</div>

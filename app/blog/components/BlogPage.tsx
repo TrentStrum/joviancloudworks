@@ -1,23 +1,25 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useBlogPostsList } from '@/hooks/react-query/use-blog';
+import { Search, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+
 import type { BlogPost } from '@/types/blog.types';
+
 import { BlogFeatureCard } from '@/app/blog/components/blog-feature-card';
 import { BlogPostSkeleton } from '@/components/skeletons/BlogPostSkeleton';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search, Sparkles } from 'lucide-react';
-import { HoverEffect } from '@/components/ui/card-hover-effect';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
-import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { HoverEffect } from '@/components/ui/card-hover-effect';
+import { Input } from '@/components/ui/input';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
+import { useBlogPostsList } from '@/hooks/react-query/use-blog';
 
 export default function BlogPage(): JSX.Element {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [sortBy, setSortBy] = useState('newest');
-	
+
 	const {
 		data: blogPosts,
 		isLoading,
@@ -113,12 +115,14 @@ export default function BlogPage(): JSX.Element {
 							<h2 className="text-2xl font-semibold">
 								{searchTerm ? 'Search Results' : 'Latest Explorations'}
 							</h2>
-							<HoverEffect items={regularPosts.map(post => ({
-								title: post.title,
-								description: post.shortDescription || post.excerpt || '',
-								link: `/blog/${post.id}`,
-								image: post.image_url || post.coverImage || '/Jupiter.png',
-							}))} />
+							<HoverEffect
+								items={regularPosts.map((post) => ({
+									title: post.title,
+									description: post.shortDescription || post.excerpt || '',
+									link: `/blog/${post.id}`,
+									image: post.image_url || post.coverImage || '/Jupiter.png',
+								}))}
+							/>
 						</motion.section>
 
 						{/* Load More */}

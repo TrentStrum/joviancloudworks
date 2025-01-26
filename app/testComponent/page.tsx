@@ -1,4 +1,4 @@
-import { FeaturesSectionDemo } from "../portfolio/components/bento-showcase";
+import { FeaturesSectionDemo } from '../portfolio/components/bento-showcase';
 
 export default function Home() {
 	// Original floating showcase screens (unchanged)

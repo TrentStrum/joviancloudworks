@@ -32,10 +32,7 @@ export async function GET(request: Request, { params }: RouteParams): Promise<Ne
 		return NextResponse.json(post);
 	} catch (error) {
 		console.error('Server error:', error);
-		return NextResponse.json(
-			{ error: 'Error fetching blog post' }, 
-			{ status: 500 }
-		);
+		return NextResponse.json({ error: 'Error fetching blog post' }, { status: 500 });
 	}
 }
 
@@ -48,7 +45,10 @@ export async function PUT(
 		const data = await request.json();
 		console.log('Updating post:', { id: params.id, data });
 
-		const { data: { user }, error: authError } = await supabase.auth.getUser();
+		const {
+			data: { user },
+			error: authError,
+		} = await supabase.auth.getUser();
 		if (authError || !user) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 		}
@@ -63,7 +63,7 @@ export async function PUT(
 				featured: data.featured,
 				tags: data.tags,
 				image_url: data.image_url,
-				updated_at: new Date().toISOString()
+				updated_at: new Date().toISOString(),
 			})
 			.eq('id', params.id)
 			.select()
@@ -71,17 +71,23 @@ export async function PUT(
 
 		if (error || !post) {
 			console.error('Supabase error:', error);
-			return NextResponse.json({ 
-				error: error?.message || 'Post not found' 
-			}, { status: error ? 500 : 404 });
+			return NextResponse.json(
+				{
+					error: error?.message || 'Post not found',
+				},
+				{ status: error ? 500 : 404 }
+			);
 		}
 
 		return NextResponse.json(post);
 	} catch (error) {
 		console.error('Update post error:', error);
-		return NextResponse.json({ 
-			error: error instanceof Error ? error.message : 'Error updating blog post' 
-		}, { status: 500 });
+		return NextResponse.json(
+			{
+				error: error instanceof Error ? error.message : 'Error updating blog post',
+			},
+			{ status: 500 }
+		);
 	}
 }
 
@@ -93,18 +99,18 @@ export async function DELETE(
 		const supabase = createRouteHandlerClient<Database>({ cookies });
 
 		// Get current user
-		const { data: { user }, error: authError } = await supabase.auth.getUser();
+		const {
+			data: { user },
+			error: authError,
+		} = await supabase.auth.getUser();
 		console.log('Auth check:', { user: user?.id, authError });
-		
+
 		if (authError || !user) {
 			return NextResponse.json({ error: 'Unauthorized - No user found' }, { status: 401 });
 		}
 
 		// Delete the post
-		const { error } = await supabase
-			.from('posts')
-			.delete()
-			.eq('id', params.id);
+		const { error } = await supabase.from('posts').delete().eq('id', params.id);
 
 		if (error) {
 			console.log('Delete error:', error);
@@ -116,4 +122,4 @@ export async function DELETE(
 		console.error('Unexpected error:', error);
 		return NextResponse.json({ error: 'Error deleting blog post' }, { status: 500 });
 	}
-} 
+}

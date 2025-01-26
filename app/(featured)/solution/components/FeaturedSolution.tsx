@@ -1,17 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
-import type { Project } from '@/types/portfolio.types';
-import { SkeletonOne, SkeletonTwo, SkeletonThree, SkeletonFour } from './skeletons';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+
+import { SkeletonOne, SkeletonTwo, SkeletonThree, SkeletonFour } from './skeletons';
+
+import type { Project } from '@/types/portfolio.types';
 
 export function FeaturedSolution(): JSX.Element {
 	const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
 	const supabase = createClientComponentClient();
 	const { theme } = useTheme();
-	const isDark = theme === "dark";
+	const isDark = theme === 'dark';
 
 	useEffect(() => {
 		const loadFeaturedProjects = async () => {

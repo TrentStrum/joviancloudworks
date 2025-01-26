@@ -1,11 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Hash, X } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Hash, X } from 'lucide-react';
 
+import type { BlogPost } from '@/types/blog.types';
+
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
 	Form,
@@ -17,11 +20,9 @@ import {
 	FormDescription,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { BlogPost } from '@/types/blog.types';
-import { Switch } from '@/components/ui/switch';
 import { RichTextEditor } from '@/components/ui/rich-text-editor';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
 	title: z.string().min(1, 'Title is required'),
@@ -43,7 +44,12 @@ interface BlogPostFormProps {
 	setEditingPost: (post: BlogPost | null) => void;
 }
 
-export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogPostFormProps): JSX.Element {
+export function BlogPostForm({
+	post,
+	onSubmit,
+	onChange,
+	setEditingPost,
+}: BlogPostFormProps): JSX.Element {
 	const [tagInput, setTagInput] = useState('');
 	const [tags, setTags] = useState<string[]>(post?.tags || []);
 
@@ -73,7 +79,7 @@ export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogP
 	};
 
 	const removeTag = (tagToRemove: string) => {
-		setTags(tags.filter(tag => tag !== tagToRemove));
+		setTags(tags.filter((tag) => tag !== tagToRemove));
 	};
 
 	const handleSubmit = (data: FormData) => {
@@ -82,11 +88,7 @@ export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogP
 
 	return (
 		<Form {...form}>
-			<form 
-				onSubmit={form.handleSubmit(handleSubmit)} 
-				onChange={onChange}
-				className="space-y-6"
-			>
+			<form onSubmit={form.handleSubmit(handleSubmit)} onChange={onChange} className="space-y-6">
 				<FormField
 					control={form.control}
 					name="title"
@@ -132,16 +134,16 @@ export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogP
 				<FormItem>
 					<FormLabel>Tags</FormLabel>
 					<div className="flex flex-wrap gap-2 mb-2">
-						{tags.map(tag => (
-							<Badge 
-								key={tag} 
+						{tags.map((tag) => (
+							<Badge
+								key={tag}
 								variant="secondary"
 								className="group bg-primary/10 hover:bg-primary/20 transition-colors duration-200"
 							>
 								<Hash className="w-3 h-3 mr-1" />
 								{tag}
-								<X 
-									className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 cursor-pointer" 
+								<X
+									className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 cursor-pointer"
 									onClick={() => removeTag(tag)}
 								/>
 							</Badge>
@@ -180,10 +182,7 @@ export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogP
 						<FormItem>
 							<FormLabel>Content</FormLabel>
 							<FormControl>
-								<RichTextEditor 
-									content={field.value} 
-									onChange={field.onChange}
-								/>
+								<RichTextEditor content={field.value} onChange={field.onChange} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -224,13 +223,11 @@ export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogP
 				/>
 
 				<div className="flex gap-2">
-					<Button type="submit">
-						{post ? 'Update Post' : 'Create Post'}
-					</Button>
+					<Button type="submit">{post ? 'Update Post' : 'Create Post'}</Button>
 					{post && (
-						<Button 
-							type="button" 
-							variant="outline" 
+						<Button
+							type="button"
+							variant="outline"
 							onClick={() => {
 								form.reset({
 									title: '',
@@ -240,7 +237,7 @@ export function BlogPostForm({ post, onSubmit, onChange, setEditingPost }: BlogP
 									excerpt: '',
 									featured: false,
 									tags: [],
-									image_url: '/Jupiter.png'
+									image_url: '/Jupiter.png',
 								});
 								setTags([]);
 								setEditingPost(null);

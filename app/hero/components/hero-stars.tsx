@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { StarsBackground } from "@/components/ui/stars-background";
-import { MovingBorder } from "@/components/ui/moving-border";
-import { SpacetimeGrid } from "@/components/ui/spacetime-grid";
-import { motion } from "framer-motion";
-import { Rocket } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { motion } from 'framer-motion';
+import { Rocket } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
+
+import { MovingBorder } from '@/components/ui/moving-border';
+import { ShootingStars } from '@/components/ui/shooting-stars';
+import { SpacetimeGrid } from '@/components/ui/spacetime-grid';
+import { StarsBackground } from '@/components/ui/stars-background';
 
 export function HeroStars(): JSX.Element {
 	const router = useRouter();
@@ -19,7 +20,7 @@ export function HeroStars(): JSX.Element {
 		setMounted(true);
 	}, []);
 
-	const isDark = mounted && theme === "dark";
+	const isDark = mounted && theme === 'dark';
 
 	return (
 		<div className="min-h-[80vh] relative flex flex-col items-center justify-center overflow-hidden bg-background dark:bg-gradient-to-b dark:from-background dark:to-background/80">

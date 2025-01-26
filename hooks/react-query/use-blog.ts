@@ -1,8 +1,6 @@
 'use client';
 
 import { useQuery, useMutation, useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { queryKeys } from '@/hooks/react-query/queryKeys';
-import { apiClient } from '@/lib/apiClient';
 
 import type { BlogPost, BlogPostFormData } from '@/types/blog.types';
 import type {
@@ -12,6 +10,9 @@ import type {
 	InfiniteData,
 	UseQueryOptions,
 } from '@tanstack/react-query';
+
+import { queryKeys } from '@/hooks/react-query/queryKeys';
+import { apiClient } from '@/lib/apiClient';
 
 interface UseBlogPostsParams {
 	searchTerm?: string;
@@ -35,11 +36,11 @@ export function useBlogPostsList({ searchTerm, sortBy }: UseBlogPostsParams = {}
 		initialPageParam: 1,
 		queryFn: async ({ pageParam }) => {
 			const posts = await apiClient.get<BlogPost[]>('/api/blog', {
-				params: { page: pageParam, searchTerm, sortBy }
+				params: { page: pageParam, searchTerm, sortBy },
 			});
 			return posts;
 		},
-		getNextPageParam: (lastPage, allPages) => 
+		getNextPageParam: (lastPage, allPages) =>
 			lastPage?.length === 10 ? allPages.length + 1 : undefined,
 	});
 }

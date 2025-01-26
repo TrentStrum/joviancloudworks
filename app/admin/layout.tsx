@@ -1,57 +1,55 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const supabase = createClientComponentClient();
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(true);
+	const supabase = createClientComponentClient();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-          router.replace('/admin/login');
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        router.replace('/admin/login');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    checkAuth();
+	useEffect(() => {
+		const checkAuth = async () => {
+			try {
+				const {
+					data: { session },
+				} = await supabase.auth.getSession();
+				if (!session) {
+					router.replace('/admin/login');
+				}
+			} catch (error) {
+				console.error('Auth check failed:', error);
+				router.replace('/admin/login');
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        router.replace('/admin/login');
-      }
-    });
+		checkAuth();
 
-    return () => subscription.unsubscribe();
-  }, [router, supabase.auth]);
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange((_event, session) => {
+			if (!session) {
+				router.replace('/admin/login');
+			}
+		});
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-pulse">Loading...</div>
-      </div>
-    );
-  }
+		return () => subscription.unsubscribe();
+	}, [router, supabase.auth]);
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        {children}
-      </div>
-    </div>
-  );
+	if (isLoading) {
+		return (
+			<div className="min-h-screen bg-background flex items-center justify-center">
+				<div className="animate-pulse">Loading...</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className="min-h-screen bg-background">
+			<div className="container mx-auto px-4 py-8">{children}</div>
+		</div>
+	);
 }

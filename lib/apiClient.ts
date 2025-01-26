@@ -119,8 +119,6 @@ export const apiClient = {
 			throw error;
 		}
 	},
-
-
 };
 
 interface EnhancedError extends Error {

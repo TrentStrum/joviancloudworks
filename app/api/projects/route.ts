@@ -17,9 +17,11 @@ export async function GET() {
 export async function POST(request: Request) {
 	try {
 		const supabase = createRouteHandlerClient({ cookies });
-		
+
 		// Check if user is authenticated and admin
-		const { data: { session } } = await supabase.auth.getSession();
+		const {
+			data: { session },
+		} = await supabase.auth.getSession();
 		const { data: profile } = await supabase
 			.from('profiles')
 			.select('role')

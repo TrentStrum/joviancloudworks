@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+
 import { FloatingDock } from './FloatingDock';
 
 export function RouteConditionalWrapper(): JSX.Element | null {
@@ -12,4 +13,4 @@ export function RouteConditionalWrapper(): JSX.Element | null {
 	}
 
 	return null; // floating dock goes here
-} 
+}

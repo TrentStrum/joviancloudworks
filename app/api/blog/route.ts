@@ -29,8 +29,7 @@ export async function GET(request: Request) {
 		query = query.or(`title.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`);
 	}
 
-	const { data, error } = await query
-		.range((parseInt(page) - 1) * 10, parseInt(page) * 10 - 1);
+	const { data, error } = await query.range((parseInt(page) - 1) * 10, parseInt(page) * 10 - 1);
 
 	if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 	return NextResponse.json(data);
@@ -42,7 +41,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 		const { title, content, image_url, featured } = await request.json();
 
 		// Get current user
-		const { data: { user }, error: authError } = await supabase.auth.getUser();
+		const {
+			data: { user },
+			error: authError,
+		} = await supabase.auth.getUser();
 		if (authError || !user) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 		}

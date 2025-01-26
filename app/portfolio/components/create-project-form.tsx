@@ -1,14 +1,21 @@
 'use client';
 
-import { useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/helpers/use-toast';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/helpers/use-toast';
 
 export function CreateProjectForm(): JSX.Element {
 	const router = useRouter();
@@ -22,9 +29,12 @@ export function CreateProjectForm(): JSX.Element {
 
 		try {
 			// Verify user session and role first
-			const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+			const {
+				data: { session },
+				error: sessionError,
+			} = await supabase.auth.getSession();
 			if (sessionError) throw sessionError;
-			
+
 			if (session?.user?.user_metadata?.role !== 'admin') {
 				throw new Error('Unauthorized: Admin access required');
 			}
@@ -35,8 +45,16 @@ export function CreateProjectForm(): JSX.Element {
 				description: formData.get('description'),
 				status: formData.get('status'),
 				images: [{ url: formData.get('imageUrl'), alt: formData.get('imageAlt') }],
-				features: formData.get('features')?.toString().split(',').map(f => f.trim()),
-				technologies: formData.get('technologies')?.toString().split(',').map(t => t.trim()),
+				features: formData
+					.get('features')
+					?.toString()
+					.split(',')
+					.map((f) => f.trim()),
+				technologies: formData
+					.get('technologies')
+					?.toString()
+					.split(',')
+					.map((t) => t.trim()),
 				featured: formData.get('featured') === 'true',
 				featured_location: formData.get('featured_location'),
 				featured_image: formData.get('featured_image'),
@@ -45,11 +63,7 @@ export function CreateProjectForm(): JSX.Element {
 
 			console.log('Submitting project data:', projectData); // Debug log
 
-			const { data, error } = await supabase
-				.from('projects')
-				.insert(projectData)
-				.select()
-				.single();
+			const { data, error } = await supabase.from('projects').insert(projectData).select().single();
 
 			if (error) {
 				console.error('Supabase error:', error); // Debug log
@@ -59,16 +73,16 @@ export function CreateProjectForm(): JSX.Element {
 			console.log('Created project:', data); // Debug log
 
 			toast({
-				title: "Success",
-				description: "Project created successfully",
+				title: 'Success',
+				description: 'Project created successfully',
 			});
 			router.refresh();
 			router.push('/portfolio');
 		} catch (error) {
 			console.error('Form submission error:', error); // Debug log
 			toast({
-				variant: "destructive",
-				title: "Error",
+				variant: 'destructive',
+				title: 'Error',
 				description: error instanceof Error ? error.message : 'Failed to create project',
 			});
 		} finally {
@@ -93,16 +107,8 @@ export function CreateProjectForm(): JSX.Element {
 				</Select>
 				<Input name="imageUrl" placeholder="Image URL" required />
 				<Input name="imageAlt" placeholder="Image Alt Text" required />
-				<Input 
-					name="features" 
-					placeholder="Features (comma-separated)" 
-					required 
-				/>
-				<Input 
-					name="technologies" 
-					placeholder="Technologies (comma-separated)" 
-					required 
-				/>
+				<Input name="features" placeholder="Features (comma-separated)" required />
+				<Input name="technologies" placeholder="Technologies (comma-separated)" required />
 				<div className="space-y-4 mt-8 pt-4 border-t">
 					<h3 className="font-semibold">Featured Solution Settings</h3>
 					<Select name="featured">

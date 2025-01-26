@@ -1,11 +1,13 @@
 'use client';
 
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Share2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Calendar, Clock, Share2 } from 'lucide-react';
 import Link from 'next/link';
-import { BlogPost } from '@/types/blog.types';
+
+import type { BlogPost } from '@/types/blog.types';
+
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 
 interface BlogPostCardProps {
 	post: BlogPost;
@@ -21,7 +23,9 @@ export function BlogPostCard({ post, featured, compact }: BlogPostCardProps) {
 			<motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className="h-full">
 				<Card className="overflow-hidden h-full hover:shadow-lg transition-all duration-300">
 					<div
-						className={`relative ${featured ? 'aspect-[2/1]' : compact ? 'aspect-[3/2]' : 'aspect-video'}`}
+						className={`relative ${
+							featured ? 'aspect-[2/1]' : compact ? 'aspect-[3/2]' : 'aspect-video'
+						}`}
 					>
 						<img src={post.coverImage} alt={post.title} className="object-cover w-full h-full" />
 						<Badge className="absolute top-4 left-4">{post.category}</Badge>

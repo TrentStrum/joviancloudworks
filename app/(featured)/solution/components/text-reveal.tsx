@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+
 import { HeroHighlight, Highlight } from './hero-highlight';
 
 export function HeroTextReveal(): JSX.Element {

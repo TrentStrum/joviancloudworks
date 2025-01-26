@@ -1,9 +1,12 @@
 'use client';
 
 import { X } from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import type { BlogPost } from '@/types/blog.types';
+
 import { BlogPostView } from '../blog/blog-post-view';
+
+import type { BlogPost } from '@/types/blog.types';
+
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 interface PreviewModalProps {
 	isOpen: boolean;
@@ -39,10 +42,7 @@ export function PreviewModal({ isOpen, onClose, post }: PreviewModalProps): JSX.
 						<X className="h-4 w-4" />
 					</button>
 					<div className="max-h-[80vh] overflow-y-auto">
-						<BlogPostView 
-							post={previewPost} 
-							isPreview 
-						/>
+						<BlogPostView post={previewPost} isPreview />
 					</div>
 				</div>
 			</DialogContent>

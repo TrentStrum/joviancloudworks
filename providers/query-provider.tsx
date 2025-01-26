@@ -28,4 +28,4 @@ export function QueryProvider({ children }: QueryProviderProps): JSX.Element {
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
-} 
+}

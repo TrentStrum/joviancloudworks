@@ -1,24 +1,27 @@
 'use client';
 
-import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CanvasRevealEffect } from '@/components/ui/canvas-effect';
-import { BlogCta } from './BlogCta';
-import { useFeaturedPost } from '@/hooks/react-query/use-blog';
 import { useTheme } from 'next-themes';
+import React, { useState } from 'react';
+
+import { BlogCta } from './BlogCta';
+
+import { CanvasRevealEffect } from '@/components/ui/canvas-effect';
+import { useFeaturedPost } from '@/hooks/react-query/use-blog';
 
 export function FeaturedPost(): JSX.Element | null {
 	const [hovered, setHovered] = useState(false);
 	const { data: featuredPost, isLoading } = useFeaturedPost();
 	const { theme } = useTheme();
-	const isDark = theme === "dark";
+	const isDark = theme === 'dark';
 
-	if (isLoading) return (
-		<div className="h-[40rem] flex items-center justify-center">
-			<div className="animate-pulse text-lg text-muted-foreground">Loading featured post...</div>
-		</div>
-	);
-	
+	if (isLoading)
+		return (
+			<div className="h-[40rem] flex items-center justify-center">
+				<div className="animate-pulse text-lg text-muted-foreground">Loading featured post...</div>
+			</div>
+		);
+
 	if (!featuredPost) return null;
 
 	return (

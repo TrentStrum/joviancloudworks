@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 		console.error('Contact form error:', error);
 		return Response.json(
 			{ error: error instanceof Error ? error.message : 'Failed to send email' },
-			{ status: 500 },
+			{ status: 500 }
 		);
 	}
 }

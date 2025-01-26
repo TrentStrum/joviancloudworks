@@ -3,80 +3,80 @@
 @tailwind utilities;
 
 :root {
-  /* Light theme - Updated with deeper contrasts */
-  --background: 220 25% 97%;
-  --foreground: 220 25% 10%;
-  --card: 220 25% 98%;
-  --card-foreground: 220 25% 10%;
-  --popover: 220 25% 98%;
-  --popover-foreground: 220 25% 10%;
-  --primary: 222 85% 25%;
-  --primary-foreground: 220 25% 98%;
-  --secondary: 220 20% 92%;
-  --secondary-foreground: 220 25% 12%;
-  --muted: 220 20% 92%;
-  --muted-foreground: 220 25% 35%;
-  --accent: 220 20% 92%;
-  --accent-foreground: 220 25% 12%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 220 20% 88%;
-  --input: 220 20% 88%;
-  --ring: 222 85% 25%;
-  --radius: 0.5rem;
+	/* Light theme - Updated with deeper contrasts */
+	--background: 220 25% 97%;
+	--foreground: 220 25% 10%;
+	--card: 220 25% 98%;
+	--card-foreground: 220 25% 10%;
+	--popover: 220 25% 98%;
+	--popover-foreground: 220 25% 10%;
+	--primary: 222 85% 25%;
+	--primary-foreground: 220 25% 98%;
+	--secondary: 220 20% 92%;
+	--secondary-foreground: 220 25% 12%;
+	--muted: 220 20% 92%;
+	--muted-foreground: 220 25% 35%;
+	--accent: 220 20% 92%;
+	--accent-foreground: 220 25% 12%;
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 0 0% 98%;
+	--border: 220 20% 88%;
+	--input: 220 20% 88%;
+	--ring: 222 85% 25%;
+	--radius: 0.5rem;
 }
 
 .dark {
-  /* Dark theme colors unchanged */
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 240 82% 60%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 82% 60%;
+	/* Dark theme colors unchanged */
+	--background: 240 10% 3.9%;
+	--foreground: 0 0% 98%;
+	--card: 240 10% 3.9%;
+	--card-foreground: 0 0% 98%;
+	--popover: 240 10% 3.9%;
+	--popover-foreground: 0 0% 98%;
+	--primary: 240 82% 60%;
+	--primary-foreground: 0 0% 98%;
+	--secondary: 240 3.7% 15.9%;
+	--secondary-foreground: 0 0% 98%;
+	--muted: 240 3.7% 15.9%;
+	--muted-foreground: 240 5% 64.9%;
+	--accent: 240 3.7% 15.9%;
+	--accent-foreground: 0 0% 98%;
+	--destructive: 0 62.8% 30.6%;
+	--destructive-foreground: 0 0% 98%;
+	--border: 240 3.7% 15.9%;
+	--input: 240 3.7% 15.9%;
+	--ring: 240 82% 60%;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
 }
 
 @layer components {
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-800 via-blue-900 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-orange-400;
-  }
+	.gradient-text {
+		@apply bg-clip-text text-transparent bg-gradient-to-r from-blue-800 via-blue-900 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-orange-400;
+	}
 
-  .section-transition {
-    @apply relative transition-opacity duration-700;
-  }
+	.section-transition {
+		@apply relative transition-opacity duration-700;
+	}
 
-  .section-transition::before {
-    @apply absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-transparent opacity-0 transition-opacity duration-700;
-    content: '';
-  }
+	.section-transition::before {
+		@apply absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-transparent opacity-0 transition-opacity duration-700;
+		content: '';
+	}
 
-  .section-transition:hover::before {
-    @apply opacity-100;
-  }
+	.section-transition:hover::before {
+		@apply opacity-100;
+	}
 
-  .bg-gradient-conic {
-    background-image: conic-gradient(var(--conic-position), var(--tw-gradient-stops));
-  }
+	.bg-gradient-conic {
+		background-image: conic-gradient(var(--conic-position), var(--tw-gradient-stops));
+	}
 }

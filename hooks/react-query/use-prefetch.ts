@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import { cachePrefetch } from '@/src/lib/cache/queryCache';
-
 import { useAuthState } from '../auth/useAuthState';
+
+import { cachePrefetch } from '@/src/lib/cache/queryCache';
 
 export function usePrefetch(): { prefetchUserData: () => Promise<void> } {
 	const { user } = useAuthState();

@@ -1,8 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import React from 'react';
+
+import { cn } from '@/lib/utils';
 
 export const BackgroundGradient = ({
 	children,

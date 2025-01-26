@@ -1,10 +1,11 @@
 'use client';
 
-import { BackgroundGradient } from "@/components/ui/background-gradient";
-import { type BlogPost } from "@/types/blog.types";
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { type BlogPost } from '@/types/blog.types';
 
 interface BlogFeatureCardProps {
 	post: BlogPost;
@@ -14,7 +15,7 @@ export function BlogFeatureCard({ post }: BlogFeatureCardProps): JSX.Element {
 	return (
 		<BackgroundGradient className="rounded-[22px] p-1 bg-background">
 			<Link href={`/blog/${post.id}`}>
-				<motion.div 
+				<motion.div
 					whileHover={{ scale: 1.02 }}
 					className="bg-background p-6 rounded-[20px] space-y-6"
 				>

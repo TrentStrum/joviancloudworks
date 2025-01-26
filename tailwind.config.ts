@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+
 const svgToDataUri = require('mini-svg-data-uri');
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 
@@ -8,7 +9,7 @@ function addVariablesForColors({ addBase, theme }: any) {
 	const newVars = Object.fromEntries(
 		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
 	);
-	
+
 	addBase({
 		':root': newVars,
 	});
@@ -62,7 +63,7 @@ const config: Config = {
 				},
 			},
 			keyframes: {
-				'float': {
+				float: {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' },
 				},
@@ -72,7 +73,7 @@ const config: Config = {
 				},
 			},
 			animation: {
-				'float': 'float 6s ease-in-out infinite',
+				float: 'float 6s ease-in-out infinite',
 				'star-field': 'star-field 20s linear infinite',
 			},
 		},

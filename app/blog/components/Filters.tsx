@@ -7,7 +7,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
-	
+
 type Props = {
 	sortBy: string;
 	setSortBy: (value: string) => void;

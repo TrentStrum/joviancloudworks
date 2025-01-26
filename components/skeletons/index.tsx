@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 export { SkeletonOne } from './skeleton-one';
 export { SkeletonTwo } from './skeleton-two';

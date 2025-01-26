@@ -1,11 +1,14 @@
-import { redirect } from 'next/navigation';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
 import { CreateProjectForm } from '../components/create-project-form';
 
 export default async function CreateProjectPage(): Promise<JSX.Element> {
 	const supabase = createServerComponentClient({ cookies });
-	const { data: { session } } = await supabase.auth.getSession();
+	const {
+		data: { session },
+	} = await supabase.auth.getSession();
 	const { data: profile } = await supabase
 		.from('profiles')
 		.select('role')

@@ -1,8 +1,9 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import dynamic from 'next/dynamic';
+
 import { cn } from '@/lib/utils';
 
 const RichTextEditor = dynamic(

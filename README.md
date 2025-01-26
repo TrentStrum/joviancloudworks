@@ -24,18 +24,21 @@ A modern cloud solutions portfolio and service platform built with Next.js 13, T
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/jovian-cloudworks.git
 cd jovian-cloudworks
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables:
-Create a `.env.local` file in the root directory with:
+   Create a `.env.local` file in the root directory with:
+
 ```bash
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
@@ -48,12 +51,14 @@ NEXT_PUBLIC_CONTACT_EMAIL=your_contact_email
 ```
 
 4. Initialize the database:
+
 ```bash
 # Run Supabase migrations
 npx supabase migration up
 ```
 
 5. Create an admin user:
+
 ```bash
 npm run create-admin
 ```
@@ -61,6 +66,7 @@ npm run create-admin
 ## Development
 
 Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -120,10 +126,12 @@ The project is configured for deployment on Netlify. Simply connect your reposit
 ## Common Issues & Solutions
 
 1. **Hydration Errors**
+
    - Ensure all client-side components have "use client" directive
    - Check for mismatched server/client rendering
 
 2. **Authentication Issues**
+
    - Verify Supabase credentials are correct
    - Check if the user session is properly maintained
 

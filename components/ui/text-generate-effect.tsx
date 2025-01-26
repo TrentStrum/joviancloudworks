@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 
 export const TextGenerateEffect = ({ words }: { words: string }): JSX.Element => {
 	const controls = useAnimation();

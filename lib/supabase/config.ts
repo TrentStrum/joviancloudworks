@@ -1,9 +1,9 @@
 import type { Database } from '@/types/database.types';
 
 export const supabaseConfig = {
-  url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+	url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+	anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 } as const;
 
 // Type exports for consistent typing across the application
-export type SupabaseDatabase = Database; 
+export type SupabaseDatabase = Database;

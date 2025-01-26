@@ -1,10 +1,11 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+
+import { cn } from '@/lib/utils';
 
 interface HoverEffectProps {
 	items: {
@@ -17,7 +18,7 @@ interface HoverEffectProps {
 }
 
 export const HoverEffect = ({ items, className }: HoverEffectProps): JSX.Element => {
-	let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
 	return (
 		<div className={cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4', className)}>

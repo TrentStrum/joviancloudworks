@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Card } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+
+import type { Project } from '@/types/portfolio.types';
+
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import {
 	Select,
 	SelectContent,
@@ -13,8 +15,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/helpers/use-toast';
-import type { Project } from '@/types/portfolio.types';
 
 export function ProjectEditor(): JSX.Element {
 	const [projects, setProjects] = useState<Project[]>([]);

@@ -1,15 +1,18 @@
 'use client';
 
-import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { BlogPost } from '@/types/blog.types';
-import { Button } from '../ui/button';
 import { motion } from 'framer-motion';
+import { Hash } from 'lucide-react';
+import Image from 'next/image';
+
 import { BackgroundGradient } from '../ui/background-gradient';
 import { Badge } from '../ui/badge';
-import { Hash } from 'lucide-react';
+import { Button } from '../ui/button';
+
+import type { BlogPost } from '@/types/blog.types';
+
 import { BlogContent } from '@/components/ui/blog-content';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface BlogPostViewProps {
 	post: BlogPost;
@@ -35,13 +38,7 @@ export function BlogPostView({ post, isPreview, handleEditClick }: BlogPostViewP
 						transition={{ duration: 0.7 }}
 						className="relative w-full h-[300px] md:h-[400px]"
 					>
-						<Image 
-							src={post.image_url} 
-							alt={post.title} 
-							fill 
-							className="object-cover" 
-							priority 
-						/>
+						<Image src={post.image_url} alt={post.title} fill className="object-cover" priority />
 						<div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
 					</motion.div>
 				)}
@@ -63,7 +60,7 @@ export function BlogPostView({ post, isPreview, handleEditClick }: BlogPostViewP
 												formatDistanceToNow(new Date(post.published_at), { addSuffix: true })}
 										</time>
 										{tags.length > 0 && (
-											<motion.div 
+											<motion.div
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ delay: 0.4 }}
@@ -76,8 +73,8 @@ export function BlogPostView({ post, isPreview, handleEditClick }: BlogPostViewP
 														animate={{ opacity: 1, scale: 1 }}
 														transition={{ delay: 0.4 + index * 0.1 }}
 													>
-														<Badge 
-															variant="secondary" 
+														<Badge
+															variant="secondary"
 															className="bg-primary/10 hover:bg-primary/20 transition-colors duration-200"
 														>
 															<Hash className="w-3 h-3 mr-1" />
@@ -111,8 +108,8 @@ export function BlogPostView({ post, isPreview, handleEditClick }: BlogPostViewP
 							transition={{ delay: 0.7 }}
 							className="mt-12 flex justify-end"
 						>
-							<Button 
-								onClick={handleEditClick} 
+							<Button
+								onClick={handleEditClick}
 								variant="outline"
 								className="bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-all duration-300"
 							>

@@ -1,6 +1,5 @@
-import { FeaturedPost } from "./components/FeaturedPost";
-
+import { FeaturedPost } from './components/FeaturedPost';
 
 export default function FeaturedPostSection(): JSX.Element {
-	return <FeaturedPost />;    
+	return <FeaturedPost />;
 }

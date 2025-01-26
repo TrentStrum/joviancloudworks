@@ -47,4 +47,4 @@ export function DeleteConfirmationModal({
 			</DialogContent>
 		</Dialog>
 	);
-} 
+}

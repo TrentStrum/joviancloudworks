@@ -1,46 +1,47 @@
-"use client"
+'use client';
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import { Home, Rocket, Mail, BookOpen } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const routes = [
-  {
-    href: '/',
-    label: 'Home',
-    icon: Home
-  },
-  {
-    href: '/portfolio',
-    label: 'Portfolio',
-    icon: Rocket
-  },
-  {
-    href: '/blog',
-    label: 'Blog',
-    icon: BookOpen
-  },
-  {
-    href: '/contact',
-    label: 'Contact',
-    icon: Mail
-  }
+	{
+		href: '/',
+		label: 'Home',
+		icon: Home,
+	},
+	{
+		href: '/portfolio',
+		label: 'Portfolio',
+		icon: Rocket,
+	},
+	{
+		href: '/blog',
+		label: 'Blog',
+		icon: BookOpen,
+	},
+	{
+		href: '/contact',
+		label: 'Contact',
+		icon: Mail,
+	},
 ];
 
 export function NavBar() {
-  const pathname = usePathname();
+	const pathname = usePathname();
 
-  return (
-    <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="font-bold text-xl gradient-text">
-            JovianCloudWorks
-          </Link>
-          
-          {/* <div className="flex gap-2">
+	return (
+		<nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b">
+			<div className="container mx-auto px-4">
+				<div className="flex h-16 items-center justify-between">
+					<Link href="/" className="font-bold text-xl gradient-text">
+						JovianCloudWorks
+					</Link>
+
+					{/* <div className="flex gap-2">
             {routes.map(({ href, label, icon: Icon }) => (
               <Button
                 key={href}
@@ -59,8 +60,8 @@ export function NavBar() {
               </Button>
             ))}
           </div> */}
-        </div>
-      </div>
-    </nav>
-  );
+				</div>
+			</div>
+		</nav>
+	);
 }

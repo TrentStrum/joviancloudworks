@@ -1,23 +1,24 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { UpcomingProjectCard } from '@/app/portfolio/components/upcoming-project-card';
+
 import { ExistingProjectCard } from '@/app/portfolio/components/existing-project-card';
+import { UpcomingProjectCard } from '@/app/portfolio/components/upcoming-project-card';
 import { DotPattern } from '@/components/ui/dot-pattern';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useProjects } from '@/hooks/react-query/use-projects';
 
 export default function PortfolioPage(): JSX.Element {
 	const { data: projects, isLoading } = useProjects();
-	
+
 	const handleNotify = (email: string): void => {
 		// Handle notification logic
 	};
 
 	if (isLoading) return <div>Loading...</div>;
 
-	const existingProjects = projects?.filter(p => p.status === 'live' && p.pricing) ?? [];
-	const upcomingProjects = projects?.filter(p => p.status === 'upcoming') ?? [];
+	const existingProjects = projects?.filter((p) => p.status === 'live' && p.pricing) ?? [];
+	const upcomingProjects = projects?.filter((p) => p.status === 'upcoming') ?? [];
 
 	return (
 		<DotPattern className="py-20">
@@ -64,7 +65,6 @@ export default function PortfolioPage(): JSX.Element {
 									initial={{ opacity: 0, y: 20 }}
 									whileInView={{ opacity: 1, y: 0 }}
 									viewport={{ once: true }}
-									
 									className="h-full"
 								>
 									<UpcomingProjectCard {...project} onNotify={handleNotify} />

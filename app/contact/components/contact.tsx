@@ -1,24 +1,32 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Progress } from "@/components/ui/progress";
-import { Send } from "lucide-react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { Send } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { useToast } from "@/hooks/helpers/use-toast";
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/helpers/use-toast';
 
 const formSchema = z.object({
-	name: z.string().min(2, "Name must be at least 2 characters"),
-	email: z.string().email("Invalid email address"),
-	company: z.string().min(2, "Company name must be at least 2 characters").or(z.literal("")),
-	message: z.string().min(10, "Message must be at least 10 characters"),
+	name: z.string().min(2, 'Name must be at least 2 characters'),
+	email: z.string().email('Invalid email address'),
+	company: z.string().min(2, 'Company name must be at least 2 characters').or(z.literal('')),
+	message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
 export default function ContactForm(): JSX.Element {
@@ -26,10 +34,10 @@ export default function ContactForm(): JSX.Element {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			name: "",
-			email: "",
-			company: "",
-			message: "",
+			name: '',
+			email: '',
+			company: '',
+			message: '',
 		},
 	});
 
@@ -54,25 +62,22 @@ export default function ContactForm(): JSX.Element {
 			if (!response.ok) throw new Error('Failed to send message');
 
 			toast({
-				title: "Message Sent!",
+				title: 'Message Sent!',
 				description: "Thanks for reaching out. We'll get back to you soon.",
-				variant: "success",
+				variant: 'success',
 			});
-			
+
 			form.reset();
 		} catch (error) {
 			toast({
-				variant: "destructive",
-				title: "Error",
-				description: error instanceof Error ? error.message : "Failed to send message",
+				variant: 'destructive',
+				title: 'Error',
+				description: error instanceof Error ? error.message : 'Failed to send message',
 			});
 		}
 	};
 
-	const progress = Math.min(
-		100,
-		Object.keys(form.formState.dirtyFields).length * 25
-	);
+	const progress = Math.min(100, Object.keys(form.formState.dirtyFields).length * 25);
 
 	return (
 		<div className="py-20">
@@ -96,7 +101,7 @@ export default function ContactForm(): JSX.Element {
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 							<Progress value={progress} className="mb-6" />
-							
+
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<FormField
 									control={form.control}
@@ -119,7 +124,11 @@ export default function ContactForm(): JSX.Element {
 										<FormItem>
 											<FormLabel>Email</FormLabel>
 											<FormControl>
-												<Input placeholder="john@example.com" {...field} className="bg-background" />
+												<Input
+													placeholder="john@example.com"
+													{...field}
+													className="bg-background"
+												/>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -151,7 +160,7 @@ export default function ContactForm(): JSX.Element {
 									<FormItem>
 										<FormLabel>Message</FormLabel>
 										<FormControl>
-											<Textarea 
+											<Textarea
 												placeholder="Tell us about your project..."
 												className="min-h-[120px] bg-background"
 												{...field}
@@ -163,7 +172,7 @@ export default function ContactForm(): JSX.Element {
 							/>
 
 							<div className="flex gap-4">
-								<input 
+								<input
 									type="file"
 									ref={fileInputRef}
 									onChange={onFileChange}
@@ -171,7 +180,10 @@ export default function ContactForm(): JSX.Element {
 									multiple
 									accept=".pdf,.doc,.docx"
 								/>
-								<Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+								<Button
+									type="submit"
+									className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+								>
 									<Send className="mr-2 h-4 w-4" />
 									Send Message
 								</Button>
