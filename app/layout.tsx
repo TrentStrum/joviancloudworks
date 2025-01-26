@@ -18,10 +18,20 @@ export const metadata: Metadata = {
 	description:
 		'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
 	openGraph: {
+		type: 'website',
 		title: 'JovianCloudWorks',
-		description: 'Enterprise-grade saas infrastructure and services',
-		url: 'https://joviancloudworks.com',
+		description: 'Transform your business with our cutting-edge saas solutions',
+		url: process.env.NEXT_PUBLIC_SITE_URL || 'https://joviancloudworks.com',
 		siteName: 'JovianCloudWorks',
+		locale: 'en_US',
+		images: [
+			{
+				url: '/og-image.png',
+				width: 1200,
+				height: 630,
+				alt: 'JovianCloudWorks - Enterprise SaaS Solutions',
+			},
+		],
 	},
 };
 
