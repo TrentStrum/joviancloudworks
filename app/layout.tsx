@@ -12,20 +12,11 @@ import { QueryProvider } from '@/providers/query-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-	metadataBase: new URL('https://joviancloudworks.io'),
+export const metadata = {
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
-	description: 'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
-	openGraph: {
-		title: 'JovianCloudWorks',
-		description: 'Enterprise-grade saas infrastructure and services',
-		url: 'https://joviancloudworks.io',
-		siteName: 'JovianCloudWorks',
-	},
+	description: 'Transform your business with our cutting-edge saas solutions.',
+	metadataBase: new URL('https://joviancloudworks.io'),
 };
-
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
