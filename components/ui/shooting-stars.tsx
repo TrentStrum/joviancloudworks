@@ -26,24 +26,7 @@ interface ShootingStarsProps {
 }
 
 const getRandomStartPoint = () => {
-  const side = Math.floor(Math.random() * 4);
-  const width = window.innerWidth;
-  const height = window.innerHeight * 2;
-  const offset = Math.random() * width;
-  const verticalOffset = Math.random() * height - window.innerHeight / 2;
-
-  switch (side) {
-    case 0:
-      return { x: offset, y: -window.innerHeight / 2, angle: 45 };
-    case 1:
-      return { x: width, y: verticalOffset, angle: 135 };
-    case 2:
-      return { x: offset, y: height - window.innerHeight / 2, angle: 225 };
-    case 3:
-      return { x: 0, y: verticalOffset, angle: 315 };
-    default:
-      return { x: 0, y: 0, angle: 45 };
-  }
+  return { x: 0, y: 0, angle: 45 }; // Default values
 };
 
 export const ShootingStars: React.FC<ShootingStarsProps> = ({
@@ -59,6 +42,14 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
 }) => {
   const [star, setStar] = useState<ShootingStar | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  
+  useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight * 2
+    });
+  }, []);
 
   useEffect(() => {
     const createStar = () => {
@@ -98,9 +89,9 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
           const newScale = 1 + newDistance / 100;
           if (
             newX < -20 ||
-            newX > window.innerWidth + 20 ||
+            newX > dimensions.width + 20 ||
             newY < -20 ||
-            newY > window.innerHeight + 20
+            newY > dimensions.height + 20
           ) {
             return null;
           }
@@ -117,7 +108,7 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
 
     const animationFrame = requestAnimationFrame(moveStar);
     return () => cancelAnimationFrame(animationFrame);
-  }, [star]);
+  }, [star, dimensions.width, dimensions.height]);
 
   return (
     <svg

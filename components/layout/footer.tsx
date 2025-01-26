@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 
 const socialLinks = [
   // { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
+  //{ icon: Instagram, href: 'https://www.instagram.com/joviancloudworks', label: 'Instagram' },
   // { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
+  //{ icon: Mail, href: 'mailto:trent.strum@joviancloudworks.com', label: 'Email' }
 ];
 
 const quickLinks = [
@@ -21,9 +21,9 @@ const quickLinks = [
 export function Footer() {
   return (
     <footer className="border-t bg-background/80 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-4">
         {/* Social Media Icons */}
-        <div className="flex justify-center space-x-6 mb-12">
+        <div className="flex justify-center space-x-6 mb-4">
           {socialLinks.map(({ icon: Icon, href, label }) => (
             <Button
               key={href}
@@ -45,7 +45,7 @@ export function Footer() {
         </div>
 
         {/* Quick Links */}
-        <div className="flex justify-center flex-wrap gap-8 mb-12">
+        <div className="flex justify-center flex-wrap gap-8 mb-4">
           {quickLinks.map(({ label, href, icon: Icon }) => (
             <Button
               key={href}

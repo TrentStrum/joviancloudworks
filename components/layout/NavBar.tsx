@@ -40,7 +40,7 @@ export function NavBar() {
             JovianCloudWorks
           </Link>
           
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             {routes.map(({ href, label, icon: Icon }) => (
               <Button
                 key={href}
@@ -58,7 +58,7 @@ export function NavBar() {
                 </Link>
               </Button>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>

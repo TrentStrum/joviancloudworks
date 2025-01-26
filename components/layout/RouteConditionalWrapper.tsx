@@ -11,5 +11,5 @@ export function RouteConditionalWrapper(): JSX.Element | null {
 		return null;
 	}
 
-	return <FloatingDock />;
+	return null; // floating dock goes here
 } 

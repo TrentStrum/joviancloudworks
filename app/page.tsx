@@ -6,21 +6,9 @@ import ContactSection from './contact/page';
 
 export default function Home(): JSX.Element {
 	return (
-		<main className="bg-gradient-to-b from-background via-background to-background min-h-screen">
-			<section className="section-fade">
+		<main className="bg-gradient-to-b from-background via-background to-background h-[calc(100vh-16rem)] mt-16">
+			<section className="h-full">
 				<HeroSection />
-			</section>
-			<SectionDivider />
-			<section className="section-fade bg-secondary/5">
-				<FeaturedSolutionSection />
-			</section>
-			<SectionDivider />
-			<section className="section-fade">
-				<FeaturedPostSection />
-			</section>
-			<SectionDivider />
-			<section className="section-fade bg-secondary/5">
-				<ContactSection />
 			</section>
 		</main>
 	);

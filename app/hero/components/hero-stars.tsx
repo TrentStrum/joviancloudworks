@@ -8,11 +8,18 @@ import { motion } from "framer-motion";
 import { Rocket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 export function HeroStars(): JSX.Element {
 	const router = useRouter();
+	const [mounted, setMounted] = useState(false);
 	const { theme } = useTheme();
-	const isDark = theme === "dark";
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	const isDark = mounted && theme === "dark";
 
 	return (
 		<div className="min-h-[80vh] relative flex flex-col items-center justify-center overflow-hidden bg-background dark:bg-gradient-to-b dark:from-background dark:to-background/80">
@@ -26,7 +33,7 @@ export function HeroStars(): JSX.Element {
 					Join us as we push the limits of
 					<br />
 					<span className="text-primary dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-blue-400 dark:via-purple-400 dark:to-orange-400">
-						Cloud Development
+						Saas Development
 					</span>
 				</motion.h1>
 
@@ -39,7 +46,7 @@ export function HeroStars(): JSX.Element {
 					Explore our portfolio and see how we can help you transform your business
 				</motion.p>
 
-				<motion.div
+				{/* <motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, delay: 0.4 }}
@@ -54,12 +61,14 @@ export function HeroStars(): JSX.Element {
 							Explore Solutions
 						</span>
 					</MovingBorder>
-				</motion.div>
+				</motion.div> */}
 			</div>
 
-			{isDark && (
+			{mounted && isDark && (
 				<>
-					<ShootingStars className="h-[200vh] -top-[50vh] opacity-75" />
+					<div suppressHydrationWarning>
+						<ShootingStars className="h-[200vh] -top-[50vh] opacity-75" />
+					</div>
 					<StarsBackground className="opacity-75" />
 				</>
 			)}
