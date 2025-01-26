@@ -1,6 +1,6 @@
 'use client';
 
-import { Github, Twitter, Linkedin, Mail, Lock, Instagram } from 'lucide-react';
+import { Github, Linkedin, Mail, Lock, Instagram } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';

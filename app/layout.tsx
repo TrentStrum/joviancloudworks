@@ -1,7 +1,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 
 import { Footer } from '@/components/layout/footer';
 import { NavigationWrapper } from '@/components/layout/NavigationWrapper';
@@ -13,24 +13,15 @@ import { QueryProvider } from '@/providers/query-provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://joviancloudworks.io'),
+	metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://joviancloudworks.com'),
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
 	description:
 		'Transform your business with our cutting-edge saas solutions. JovianCloudWorks delivers enterprise-grade saas infrastructure and services.',
 	openGraph: {
 		title: 'JovianCloudWorks',
 		description: 'Enterprise-grade saas infrastructure and services',
-		url: 'https://joviancloudworks.io',
+		url: 'https://joviancloudworks.com',
 		siteName: 'JovianCloudWorks',
-		images: [
-			{
-				url: '/og-image.png',
-				width: 1200,
-				height: 630,
-			},
-		],
-		locale: 'en_US',
-		type: 'website',
 	},
 };
 
