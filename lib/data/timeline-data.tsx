@@ -1,6 +1,5 @@
-import type { TimelineEntry } from '@/lib/types/timeline';
-
 import { Card } from '@/components/ui/card';
+import { TimelineEntry } from '@/types/database.types';
 
 export const timelineData: TimelineEntry[] = [
 	{

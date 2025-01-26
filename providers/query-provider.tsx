@@ -8,20 +8,9 @@ interface QueryProviderProps {
 	children: ReactNode;
 }
 
-export function QueryProvider({ children }: QueryProviderProps): JSX.Element {
-	const [queryClient] = useState(
-		() =>
-			new QueryClient({
-				defaultOptions: {
-					queries: {
-						staleTime: 60 * 1000, // 1 minute
-						refetchOnWindowFocus: false,
-						retry: 1,
-					},
-				},
-			})
-	);
+export const queryClient = new QueryClient();
 
+export function QueryProvider({ children }: QueryProviderProps): JSX.Element {
 	return (
 		<QueryClientProvider client={queryClient}>
 			{children}

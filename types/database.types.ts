@@ -10,3 +10,17 @@ export interface Project {
 	pricing: boolean;
 	// ... other project fields
 }
+
+export interface Database {
+	public: {
+		Tables: {
+			// Your table definitions here
+		};
+		Views: {
+			// Your view definitions here
+		};
+		Functions: {
+			// Your function definitions here
+		};
+	};
+}
