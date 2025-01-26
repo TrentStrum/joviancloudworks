@@ -182,7 +182,10 @@ export function BlogPostForm({
 						<FormItem>
 							<FormLabel>Content</FormLabel>
 							<FormControl>
-								<RichTextEditor content={field.value} onChange={field.onChange} />
+								<RichTextEditor 
+									value={field.value} 
+									onValueChange={field.onChange} 
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
