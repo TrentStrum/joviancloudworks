@@ -6,7 +6,6 @@ import { RouteConditionalWrapper } from '@/components/layout/RouteConditionalWra
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 
-
 export const metadata = {
 	title: 'JovianCloudWorks - Saas Solutions for the Future',
 	description: 'Transform your business with our cutting-edge saas solutions.',
@@ -18,22 +17,25 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
-		<html lang="en" suppressHydrationWarning>
-			<body className="flex flex-col min-h-screen">
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<NavigationWrapper />
-					<RouteConditionalWrapper />
-					<div className="star-field" />
-					<main className="flex-grow">{children}</main>
-					<Footer />
-					<Toaster />
-				</ThemeProvider>
-			</body>
-		</html>
+		<>
+			{'<!DOCTYPE html>'}
+			<html lang="en" suppressHydrationWarning>
+				<body className="flex flex-col min-h-screen">
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<NavigationWrapper />
+						<RouteConditionalWrapper />
+						<div className="star-field" />
+						<main className="flex-grow">{children}</main>
+						<Footer />
+						<Toaster />
+					</ThemeProvider>
+				</body>
+			</html>
+		</>
 	);
 }
