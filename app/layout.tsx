@@ -17,25 +17,22 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
-		<>
-
-			<html lang="en" suppressHydrationWarning>
-				<body className="flex flex-col min-h-screen">
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						<NavigationWrapper />
-						<RouteConditionalWrapper />
-						<div className="star-field" />
-						<main className="flex-grow">{children}</main>
-						<Footer />
-						<Toaster />
-					</ThemeProvider>
-				</body>
-			</html>
-		</>
+		<html lang="en" suppressHydrationWarning>
+			<body className="flex flex-col min-h-screen">
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<NavigationWrapper />
+					<RouteConditionalWrapper />
+					<div className="star-field" />
+					<main className="flex-grow">{children}</main>
+					<Footer />
+					<Toaster />
+				</ThemeProvider>
+			</body>
+		</html>
 	);
 }
