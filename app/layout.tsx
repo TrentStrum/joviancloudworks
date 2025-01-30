@@ -18,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<>
-			{'<!DOCTYPE html>'}
+
 			<html lang="en" suppressHydrationWarning>
 				<body className="flex flex-col min-h-screen">
 					<ThemeProvider
