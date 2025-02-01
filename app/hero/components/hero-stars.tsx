@@ -32,7 +32,7 @@ export function HeroStars(): JSX.Element {
 					Join us as we push the limits of
 					<br />
 					<span className="text-primary dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-blue-400 dark:via-purple-400 dark:to-orange-400">
-						Saas Development
+						Saas Development!
 					</span>
 				</motion.h1>
 
