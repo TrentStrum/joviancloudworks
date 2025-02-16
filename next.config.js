@@ -8,6 +8,18 @@ const nextConfig = {
 	},
 	productionBrowserSourceMaps: true,
 	// Remove any edge runtime configurations
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'images.unsplash.com',
+			},
+			{
+				protocol: 'https',
+				hostname: 'assets.aceternity.com',
+			},
+		],
+	},
 };
 
 module.exports = nextConfig;

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 const quickLinks = [
 	{ label: 'Privacy', href: '/privacy' },
 	{ label: 'Terms', href: '/terms' },
+	{ label: 'Contact', href: '/contact' },
 ];
 
 export function Footer() {

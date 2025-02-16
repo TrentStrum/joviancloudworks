@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Rocket, Users, Cloud } from 'lucide-react';
 import Link from 'next/link';
 
+import { ShootingStars } from '@/components/ui/shooting-stars';
+import { StarsBackground } from '@/components/ui/stars-background';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -28,6 +30,11 @@ const metrics = [
 export function LandingHeroSection(): JSX.Element {
 	return (
 		<section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
+			<div suppressHydrationWarning>
+				<ShootingStars className="h-[200vh] -top-[50vh] opacity-75" />
+			</div>
+			<StarsBackground className="opacity-75" />
+			
 			<div className="container px-4 mx-auto">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
@@ -36,14 +43,17 @@ export function LandingHeroSection(): JSX.Element {
 					className="text-center mb-16"
 				>
 					<h1 className="text-5xl md:text-7xl font-bold mb-6 gradient-text">
-						Transform Your Cloud Journey
+						Join us as we push the limits of Saas Development
 					</h1>
 					<p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8">
-						Elevate your business with cutting-edge cloud solutions that drive innovation and growth
+						Explore our portfolio of projects and see how we can help you achieve your business goals
 					</p>
 					<div className="flex flex-wrap justify-center gap-4">
 						<Link href="/portfolio">
-							<Button size="lg" className="bg-space-blue hover:bg-space-blue/90 transition-colors">
+							<Button 
+								size="lg" 
+								className="relative bg-space-blue hover:bg-blue-700 cursor-pointer z-10 transition-colors"
+							>
 								<Rocket className="mr-2 h-4 w-4" />
 								Explore Our Portfolio
 							</Button>
@@ -52,7 +62,7 @@ export function LandingHeroSection(): JSX.Element {
 							<Button
 								size="lg"
 								variant="outline"
-								className="hover:bg-secondary transition-colors text-gray-800 dark:text-inherit"
+								className="relative z-10 hover:bg-secondary transition-colors text-gray-800 dark:text-inherit cursor-pointer"
 							>
 								<Cloud className="mr-2 h-4 w-4" />
 								Submit Your Idea

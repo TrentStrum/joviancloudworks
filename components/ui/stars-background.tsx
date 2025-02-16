@@ -25,7 +25,7 @@ interface StarBackgroundProps {
 }
 
 export const StarsBackground: React.FC<StarBackgroundProps> = ({
-	starDensity = 0.00015,
+	starDensity = 0.0005,
 	allStarsTwinkle = true,
 	twinkleProbability = 0.7,
 	minTwinkleSpeed = 0.5,
@@ -42,13 +42,13 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
 			const numStars = Math.floor(area * starDensity);
 			return Array.from({ length: numStars }, () => {
 				const shouldTwinkle = allStarsTwinkle || Math.random() < twinkleProbability;
-				const baseRadius = theme === 'dark' ? 0.5 : 1.0;
-				const radiusVariation = theme === 'dark' ? 0.05 : 0.1;
+				const baseRadius = theme === 'dark' ? 0.5 : 0.75;
+				const radiusVariation = theme === 'dark' ? 0.25 : 0.35;
 				return {
 					x: Math.random() * width,
 					y: Math.random() * height,
 					radius: Math.random() * radiusVariation + baseRadius,
-					opacity: Math.random() * 0.5 + 0.5,
+					opacity: Math.random() * 0.3 + 0.7,
 					twinkleSpeed: shouldTwinkle
 						? minTwinkleSpeed + Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
 						: null,
@@ -108,7 +108,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
 			stars.forEach((star) => {
 				ctx.beginPath();
 				ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-				const starColor = theme === 'dark' ? '255, 255, 255' : '31, 41, 55';
+				const starColor = '255, 255, 255';
 				ctx.fillStyle = `rgba(${starColor}, ${star.opacity})`;
 				ctx.fill();
 
@@ -125,9 +125,12 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
 		return () => {
 			cancelAnimationFrame(animationFrameId);
 		};
-	}, [stars, theme]);
+	}, [stars]);
 
 	return (
-		<canvas ref={canvasRef} className={cn('h-[200vh] w-full absolute -top-[50vh]', className)} />
+		<canvas 
+			ref={canvasRef} 
+			className={cn('h-[200vh] w-full absolute -top-[50vh] z-0', className)} 
+		/>
 	);
 };

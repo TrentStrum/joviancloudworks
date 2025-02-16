@@ -32,7 +32,6 @@ const toastVariants = cva(
 				default: 'border bg-background text-foreground',
 				destructive:
 					'destructive group border-destructive bg-destructive text-destructive-foreground',
-				success: 'border-green-500 bg-green-500 text-white',
 			},
 		},
 		defaultVariants: {
@@ -108,17 +107,13 @@ const ToastDescription = React.forwardRef<
 ));
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
-export type ToastProps = React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & {
-	title?: string;
-	description?: React.ReactNode;
-	action?: React.ReactNode;
-	className?: string;
-	duration?: number;
-};
+type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
 
-export type ToastActionElement = React.ReactElement<typeof ToastPrimitives.Action>;
+type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
 export {
+	type ToastProps,
+	type ToastActionElement,
 	ToastProvider,
 	ToastViewport,
 	Toast,
