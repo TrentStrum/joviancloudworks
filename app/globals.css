@@ -197,96 +197,152 @@
 	}
 }
 
-.space-card {
-	@apply backdrop-blur-sm bg-gradient-to-br from-white/10 to-white/5 
-         border border-white/20 shadow-xl transition-all duration-300
-         hover:shadow-2xl hover:border-white/30;
-}
-
-.jupiter-gradient {
-	@apply bg-gradient-to-r from-[hsl(var(--jupiter-orange))] 
-         via-[hsl(var(--jupiter-red))] to-[hsl(var(--jupiter-blue))]
-         transition-opacity duration-300;
-}
-
-.cosmic-text {
-	@apply text-shadow transition-all duration-300;
-}
-
-.control-panel {
-	@apply bg-gradient-to-b from-white/10 to-white/5
-         border-b border-white/20 backdrop-blur-md
-         transition-all duration-300;
-}
-
-.star {
-	@apply fixed w-0.5 h-0.5 bg-white rounded-full;
-	animation: twinkle 1s infinite;
-}
-
-@keyframes twinkle {
-	0%,
-	100% {
-		@apply opacity-100;
+@layer components {
+	.space-card {
+		@apply backdrop-blur-sm bg-gradient-to-br from-white/10 to-white/5 
+			border border-white/20 shadow-xl transition-all duration-300
+			hover:shadow-2xl hover:border-white/30;
 	}
-	50% {
-		@apply opacity-30;
+
+	.jupiter-gradient {
+		@apply bg-gradient-to-r from-[hsl(var(--jupiter-orange))] 
+			via-[hsl(var(--jupiter-red))] to-[hsl(var(--jupiter-blue))]
+			transition-opacity duration-300;
 	}
-}
 
-.orbital-card {
-	@apply transform-gpu transition-all duration-300;
-	transform-style: preserve-3d;
-	perspective: 1000px;
-}
+	.cosmic-text {
+		@apply text-shadow transition-all duration-300;
+	}
 
-.orbital-card:hover {
-	@apply -translate-y-2;
-	transform: rotateX(6deg) scale(1.05);
-}
+	.control-panel {
+		@apply bg-gradient-to-b from-white/10 to-white/5
+			border-b border-white/20 backdrop-blur-md
+			transition-all duration-300;
+	}
 
-.mission-console {
-	@apply bg-gradient-to-b from-neutral-900/90 to-neutral-900/70
-         border border-[hsl(var(--jupiter-blue))/30]
-         shadow-lg shadow-[hsl(var(--jupiter-blue))/10]
-         transition-all duration-300;
-}
+	.star {
+		@apply fixed w-0.5 h-0.5 bg-white rounded-full;
+		animation: twinkle 1s infinite;
+	}
 
-.mobile-nav {
-	@apply fixed inset-0 bg-background/95 backdrop-blur-lg
-         transform transition-transform duration-300 ease-in-out
-         flex flex-col items-center justify-center gap-8
-         md:hidden;
-}
+	.orbital-card {
+		@apply transform-gpu transition-all duration-300;
+		transform-style: preserve-3d;
+		perspective: 1000px;
+	}
 
-@media (pointer: coarse) {
-	button,
-	a {
-		@apply min-h-[44px] min-w-[44px];
+	.orbital-card:hover {
+		@apply -translate-y-2;
+		transform: rotateX(6deg) scale(1.05);
+	}
+
+	.mission-console {
+		@apply bg-gradient-to-b from-neutral-900/90 to-neutral-900/70
+			border border-[hsl(var(--jupiter-blue))/30]
+			shadow-lg shadow-[hsl(var(--jupiter-blue))/10]
+			transition-all duration-300;
+	}
+
+	.mobile-nav {
+		@apply fixed inset-0 bg-background/95 backdrop-blur-lg
+			transform transition-transform duration-300 ease-in-out
+			flex flex-col items-center justify-center gap-8
+			md:hidden;
+	}
+
+	.loading {
+		@apply animate-pulse bg-muted/50;
+	}
+
+	.image-loading {
+		@apply blur-sm transition-all duration-300;
+	}
+
+	.image-loaded {
+		@apply blur-0;
 	}
 }
 
-.loading {
-	@apply animate-pulse bg-muted/50;
-}
-
-.image-loading {
-	@apply blur-sm transition-all duration-300;
-}
-
-.image-loaded {
-	@apply blur-0;
-}
-
-@keyframes scroll {
-	from {
-		transform: translateX(0);
+@layer utilities {
+	/* Improved focus styles */
+	:focus-visible {
+		outline: 2px solid var(--primary);
+		outline-offset: 2px;
+		border-radius: 0.25rem;
 	}
-	to {
-		transform: translateX(calc(-50% - 1rem));
-	}
-}
 
-.animate-scroll {
-	animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+	/* Skip to main content link */
+	.skip-to-main {
+		position: absolute;
+		left: -9999px;
+		z-index: 999;
+		padding: 1em;
+		background-color: var(--background);
+		color: var(--foreground);
+		text-decoration: none;
+	}
+	
+	.skip-to-main:focus {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	@keyframes twinkle {
+		0%,
+		100% {
+			@apply opacity-100;
+		}
+		50% {
+			@apply opacity-30;
+		}
+	}
+
+	@keyframes scroll {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(calc(-50% - 1rem));
+		}
+	}
+
+	.animate-scroll {
+		animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+	}
+
+	/* Better touch targets for mobile */
+	@media (max-width: 640px) {
+		button, 
+		[role="button"],
+		input,
+		select,
+		textarea {
+			min-height: 44px;
+			min-width: 44px;
+		}
+	}
+
+	/* High contrast mode improvements */
+	@media (forced-colors: active) {
+		* {
+			border-color: ButtonBorder;
+		}
+		button, 
+		[role="button"] {
+			border: 1px solid ButtonBorder;
+		}
+	}
+
+	/* Reduced motion preferences */
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+		.animate-scroll {
+			animation: none !important;
+		}
+	}
 }
