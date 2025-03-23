@@ -64,6 +64,12 @@ export const ModalBody = ({ children, className }: { children: ReactNode; classN
 	const { setOpen } = useModal();
 	useOutsideClick(modalRef, () => setOpen(false));
 
+	useEffect(() => {
+		const handleCloseModal = () => setOpen(false);
+		window.addEventListener('close-modal', handleCloseModal);
+		return () => window.removeEventListener('close-modal', handleCloseModal);
+	}, [setOpen]);
+
 	return (
 		<AnimatePresence>
 			{open && (
@@ -170,8 +176,12 @@ const CloseIcon = () => {
 	const { setOpen } = useModal();
 	return (
 		<button 
-			onClick={() => setOpen(false)} 
-			className="absolute top-4 right-4 group p-2 -m-2"
+			onClick={() => setOpen(false)}
+			onTouchEnd={(e) => {
+				e.preventDefault();
+				setOpen(false);
+			}}
+			className="absolute top-4 right-4 group p-4 -m-4 touch-manipulation"
 			aria-label="Close modal"
 		>
 			<svg
@@ -184,7 +194,7 @@ const CloseIcon = () => {
 				strokeWidth="2"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-				className="text-black dark:text-white h-5 w-5 group-hover:scale-125 group-hover:rotate-3 transition duration-200"
+				className="text-black dark:text-white h-6 w-6 group-hover:scale-125 group-hover:rotate-3 transition duration-200"
 				aria-hidden="true"
 			>
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />

@@ -58,6 +58,33 @@ export function ProcessModal({
 				</ModalTrigger>
 				<ModalBody>
 					<ModalContent>
+						<button 
+							onClick={() => window.dispatchEvent(new CustomEvent('close-modal'))}
+							onTouchEnd={(e) => {
+								e.preventDefault();
+								window.dispatchEvent(new CustomEvent('close-modal'));
+							}}
+							className="absolute top-4 right-4 p-4 -m-4 touch-manipulation z-50"
+							aria-label="Close modal"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								className="text-black dark:text-white h-6 w-6 hover:scale-125 hover:rotate-3 transition duration-200"
+								aria-hidden="true"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M18 6l-12 12" />
+								<path d="M6 6l12 12" />
+							</svg>
+						</button>
 						<div className="text-center mb-8">
 							<div className="w-16 h-16 rounded-full mb-4 flex items-center justify-center bg-primary/10 mx-auto">
 								<Icon className="w-8 h-8 text-primary" />
