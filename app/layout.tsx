@@ -4,6 +4,7 @@ import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { Providers } from '@/components/providers';
 import { Inter, Space_Grotesk } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -18,23 +19,50 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-	title: 'JovianCloudWorks - Enterprise Cloud Solutions',
-	description:
-		'Launch your business into the future with enterprise cloud solutions engineered for the digital age.',
-	keywords: 'cloud computing, enterprise solutions, data storage, security, infrastructure',
+	title: {
+		default: 'Jovian Cloud Works | Enterprise Cloud Solutions',
+		template: '%s | Jovian Cloud Works'
+	},
+	description: 'Enterprise-grade cloud infrastructure, security, and storage solutions. Scalable, secure, and reliable cloud services for modern businesses.',
+	keywords: ['cloud computing', 'enterprise cloud', 'cloud security', 'cloud storage', 'cloud infrastructure', 'managed cloud services'],
+	authors: [{ name: 'Jovian Cloud Works' }],
+	creator: 'Jovian Cloud Works',
 	openGraph: {
-		title: 'JovianCloudWorks - Enterprise Cloud Solutions',
-		description:
-			'Launch your business into the future with enterprise cloud solutions engineered for the digital age.',
 		type: 'website',
 		locale: 'en_US',
+		url: 'https://joviancloudworks.com',
+		siteName: 'Jovian Cloud Works',
+		title: 'Jovian Cloud Works | Enterprise Cloud Solutions',
+		description: 'Enterprise-grade cloud infrastructure, security, and storage solutions.',
+		images: [
+			{
+				url: '/og-image.jpg',
+				width: 1200,
+				height: 630,
+				alt: 'Jovian Cloud Works'
+			}
+		]
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'JovianCloudWorks - Enterprise Cloud Solutions',
-		description:
-			'Launch your business into the future with enterprise cloud solutions engineered for the digital age.',
+		title: 'Jovian Cloud Works | Enterprise Cloud Solutions',
+		description: 'Enterprise-grade cloud infrastructure, security, and storage solutions.',
+		images: ['/og-image.jpg']
 	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			'max-video-preview': -1,
+			'max-image-preview': 'large',
+			'max-snippet': -1,
+		},
+	},
+	verification: {
+		google: 'your-google-verification-code', // Add your Google verification code
+	}
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -57,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						{children}
 					</main>
 					<Footer />
+					<Toaster position="top-right" richColors />
 					<div
 						aria-hidden="true"
 						className="fixed inset-0 pointer-events-none bg-gradient-to-b from-background/0 via-background/80 to-background/40 -z-10"

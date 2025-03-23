@@ -3,7 +3,7 @@ import { TextGenerateEffect } from '../../components/ui/text-generate-effect';
 
 export default function HeroSection() {
 	return (
-		<div className="h-full flex items-center justify-center">
+		<div className="h-[calc(100%+4rem)] pt-16 pb-16 flex items-center justify-center">
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}

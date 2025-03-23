@@ -1,7 +1,6 @@
 'use client';
 
 import { ThemeProvider } from '@/components/theme-provider';
-import { Navigation } from '@/components/navigation';
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -17,7 +16,6 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
 			>
 				Skip to main content
 			</a>
-			<Navigation />
 			<main id="main-content" className="flex-grow">
 				{children}
 			</main>

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export function ComingSoon() {
 	return (
@@ -30,10 +31,12 @@ export function ComingSoon() {
 					We&apos;re working on something amazing. Stay tuned!
 				</motion.p>
 				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
-					<Button size="lg" className="group">
-						Contact Us
-						<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-					</Button>
+					<Link href="/contact">
+						<Button size="lg" className="group">
+							Contact Us
+							<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+						</Button>
+					</Link>
 				</motion.div>
 			</motion.div>
 		</div>

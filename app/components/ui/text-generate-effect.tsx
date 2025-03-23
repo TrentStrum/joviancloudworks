@@ -70,26 +70,24 @@ export const TextGenerateEffect = ({
 	const renderWords = (words: string[], scope: AnimationScope, className?: string) => {
 		return (
 			<motion.div ref={scope} className={className}>
-				{words.map((word, idx) => {
-					return (
-						<motion.span
-							key={word + idx}
-							className="inline-block"
-							initial={{
-								opacity: 0,
-								filter: filter ? 'blur(4px)' : 'none',
-								transform: 'translateY(4px)',
-							}}
-							style={{
-								willChange: 'transform, opacity, filter',
-								backfaceVisibility: 'hidden',
-								WebkitFontSmoothing: 'antialiased',
-							}}
-						>
-							{word}{' '}
-						</motion.span>
-					);
-				})}
+				{words.map((word, idx) => (
+					<motion.span
+						key={word + idx}
+						className="inline-block mr-[0.25em]"
+						initial={{
+							opacity: 0,
+							filter: filter ? 'blur(4px)' : 'none',
+							transform: 'translateY(4px)',
+						}}
+						style={{
+							willChange: 'transform, opacity, filter',
+							backfaceVisibility: 'hidden',
+							WebkitFontSmoothing: 'antialiased',
+						}}
+					>
+						{word}
+					</motion.span>
+				))}
 			</motion.div>
 		);
 	};

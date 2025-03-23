@@ -42,7 +42,7 @@ export default function AboutPage() {
 							>
 								<motion.div className="flex-1 text-center">
 									<p className="text-muted-foreground/80 italic">
-										{'DIY solutions that don&apos;t scale'.split(' ').map((word, i) => (
+										{'DIY solutions that don\'t scale'.split(' ').map((word, i) => (
 											<motion.span
 												key={i}
 												initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }}

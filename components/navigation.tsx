@@ -30,8 +30,10 @@ const navItems = [
 export function Navigation() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
 
 	useEffect(() => {
+		setIsMounted(true);
 		const handleScroll = () => {
 			setScrolled(window.scrollY > 20);
 		};
@@ -50,6 +52,16 @@ export function Navigation() {
 			document.body.style.overflow = '';
 		};
 	}, [isOpen]);
+
+	const handleMenuClick = () => {
+		setIsOpen(!isOpen);
+	};
+
+	const handleLinkClick = () => {
+		setIsOpen(false);
+	};
+
+	if (!isMounted) return null;
 
 	return (
 		<nav
@@ -90,8 +102,8 @@ export function Navigation() {
 
 					{/* Mobile Menu Button */}
 					<button
-						className="md:hidden p-2 hover:bg-primary/10 rounded-lg transition-colors"
-						onClick={() => setIsOpen(!isOpen)}
+						className="md:hidden p-2 hover:bg-primary/10 rounded-lg transition-colors active:scale-95"
+						onClick={handleMenuClick}
 						aria-expanded={isOpen}
 						aria-label={isOpen ? 'Close menu' : 'Open menu'}
 					>
@@ -108,22 +120,32 @@ export function Navigation() {
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: -20 }}
 							transition={{ duration: 0.2 }}
-							className="fixed inset-0 bg-background/95 backdrop-blur-lg z-50 flex flex-col items-center justify-center gap-8 md:hidden"
+							className="fixed inset-0 bg-background/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center gap-6 md:hidden"
 							role="dialog"
 							aria-modal="true"
 							aria-label="Mobile navigation menu"
 						>
+							{/* Close Button */}
+							<button
+								className="absolute top-4 right-4 p-2 hover:bg-primary/10 rounded-lg transition-colors active:scale-95"
+								onClick={handleMenuClick}
+								aria-label="Close menu"
+							>
+								<X className="w-6 h-6" />
+							</button>
+
 							{navItems.map((item, index) => (
 								<motion.div
 									key={item.name}
 									initial={{ opacity: 0, y: -10 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ delay: index * 0.1 }}
+									className="w-full max-w-xs"
 								>
 									<Link
 										href={item.href}
-										className="flex items-center space-x-3 px-6 py-4 text-lg font-medium text-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-colors"
-										onClick={() => setIsOpen(false)}
+										className="flex items-center space-x-3 px-6 py-4 text-lg font-medium text-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-colors active:scale-95"
+										onClick={handleLinkClick}
 										aria-label={item.ariaLabel}
 									>
 										<item.icon className="w-5 h-5" />

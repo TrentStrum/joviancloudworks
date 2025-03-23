@@ -11,7 +11,7 @@ export default function ServicesPage() {
 		<main className="min-h-screen">
 			<ParticlesBackground />
 
-			<section className="relative h-[45vh]">
+			<section className="relative h-[50vh]">
 				<div className="absolute inset-0 jupiter-gradient opacity-10"></div>
 				<Container className="h-full">
 					<HeroSection />

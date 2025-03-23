@@ -83,8 +83,8 @@ export default function CookiePolicy() {
 						<h2 className="text-2xl font-bold mb-4">Contact us</h2>
 						<p>
 							If you have any questions about our use of cookies, please contact us at{' '}
-							<a href="mailto:contact@example.com" className="text-primary hover:underline">
-								contact@example.com
+							<a href="mailto:contact@joviancloudworks.com" className="text-primary hover:underline">
+								contact@joviancloudworks.com
 							</a>
 						</p>
 					</section>
