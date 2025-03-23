@@ -1,0 +1,54 @@
+# Build outputs
+out/
+.next/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Generated files
+**/chunks/
+**/webpack/
+**/*.min.js
+**/*.min.ts
+**/generated/
+**/__generated__/
+**/static/
+**/chunks/*.js
+**/chunks/*.ts
+**/webpack-*.js
+**/webpack-*.ts
+**/chunks/webpack-*.js
+**/chunks/webpack-*.ts
+**/_buildManifest.js
+**/_ssgManifest.js
+**/_middlewareManifest.js
+
+# Cache and temporary files
+.turbo/
+coverage/
+
+# Configuration files
+*.config.js
+*.config.ts
+next-env.d.ts
+postcss.config.js
+tailwind.config.js
+
+# Static assets
+static/
+public/
+
+# Test files
+__tests__/
+test/
+tests/
+
+# Next.js specific
+**/_app.js
+**/_document.js
+**/_error.js
+**/_middleware.js
+**/api/**/*.js
+**/api/**/*.ts 
