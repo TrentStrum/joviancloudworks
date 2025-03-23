@@ -6,7 +6,8 @@ interface ServiceData {
 	price?: number;
 }
 
-const calculateLineTotal = (price: number = 0, quantity: string) => {
+const calculateLineTotal = (price: number | undefined, quantity: string) => {
+	if (!price) return 0;
 	return price * parseInt(quantity);
 };
 
@@ -35,7 +36,7 @@ export const exportConfiguration = (calculatorConfig: CalculatorConfig) => {
 		security: securityLevels.find((u) => u.value === calculatorConfig.security),
 	};
 
-	const formatServiceRow = (category: string, service: ServiceData, quantity: string) => [
+	const formatServiceRow = (category: string, service: ServiceData | undefined, quantity: string) => [
 		category,
 		service?.label || '',
 		quantity,
