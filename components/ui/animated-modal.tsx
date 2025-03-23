@@ -86,7 +86,7 @@ export const ModalBody = ({ children, className }: { children: ReactNode; classN
 					<motion.div
 						ref={modalRef}
 						className={cn(
-							'min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden',
+							'min-h-[50%] max-h-[90vh] w-[95%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden',
 							className,
 						)}
 						initial={{
@@ -113,7 +113,9 @@ export const ModalBody = ({ children, className }: { children: ReactNode; classN
 						}}
 					>
 						<CloseIcon />
-						{children}
+						<div className="overflow-y-auto flex-1">
+							{children}
+						</div>
 					</motion.div>
 				</motion.div>
 			)}

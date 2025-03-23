@@ -1,5 +1,5 @@
 'use client';
-import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { motion, stagger, useAnimate, AnimationScope } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -27,9 +27,9 @@ export const TextGenerateEffect = ({
 	const staggerDelay = 0.12; // Reduced for smoother flow
 	const firstRowTotalDuration = staggerDelay * (wordsArray.length - 1);
 
-	// First line animation
-	useMutation({
-		mutationFn: async () => {
+	useEffect(() => {
+		const animate = async () => {
+			// First line animation
 			await animate1(
 				'span',
 				{
@@ -43,8 +43,7 @@ export const TextGenerateEffect = ({
 					ease: [0.2, 0.65, 0.3, 0.9], // Custom easing for smoother motion
 				},
 			);
-		},
-		onSuccess: () => {
+
 			// Second line animation after first line completes
 			if (secondLineArray.length > 0) {
 				setTimeout(() => {
@@ -63,8 +62,10 @@ export const TextGenerateEffect = ({
 					);
 				}, firstRowTotalDuration * 1000);
 			}
-		},
-	});
+		};
+
+		animate();
+	}, [animate1, animate2, duration, filter, firstRowTotalDuration, secondLineArray.length, staggerDelay]);
 
 	const renderWords = (words: string[], scope: AnimationScope, className?: string) => {
 		return (

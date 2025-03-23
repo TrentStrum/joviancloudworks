@@ -108,7 +108,7 @@ export function Navigation() {
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: -20 }}
 							transition={{ duration: 0.2 }}
-							className="mobile-nav"
+							className="fixed inset-0 bg-background/95 backdrop-blur-lg z-50 flex flex-col items-center justify-center gap-8 md:hidden"
 							role="dialog"
 							aria-modal="true"
 							aria-label="Mobile navigation menu"

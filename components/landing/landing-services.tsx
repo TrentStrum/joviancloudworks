@@ -35,10 +35,10 @@ export default function LandingServices() {
 							{service.title}
 						</h3>
 						<p className="text-muted-foreground text-lg mb-8 flex-grow">{service.description}</p>
-						<Button variant="ghost" className="group w-fit">
+						{/* <Button variant="ghost" className="group w-fit">
 							Learn More
 							<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-						</Button>
+						</Button> */}
 					</motion.div>
 				))}
 			</div>

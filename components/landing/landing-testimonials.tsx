@@ -5,7 +5,7 @@ import { testimonials } from '@/lib/testimonials';
 
 export default function LandingTestimonials() {
 	return (
-		<Container className="max-w-5xl">
+		<Container className="max-w-7xl">
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}

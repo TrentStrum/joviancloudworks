@@ -71,6 +71,12 @@
 			--ring: 212.7 26.8% 16.1%;
 		}
 	}
+
+	@media (prefers-color-scheme: dark) {
+		body {
+			background: radial-gradient(circle at center, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
+		}
+	}
 }
 
 @layer base {
@@ -79,7 +85,7 @@
 	}
 	body {
 		@apply bg-background text-foreground transition-colors duration-300;
-		background: radial-gradient(circle at center, hsl(220, 85%, 4%) 0%, hsl(220, 85%, 2%) 100%);
+		background: radial-gradient(circle at center, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
 	}
 
 	h1 {
@@ -188,4 +194,17 @@
 
 .image-loaded {
 	@apply blur-0;
+}
+
+@keyframes scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(calc(-50% - 1rem));
+	}
+}
+
+.animate-scroll {
+	animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 }
