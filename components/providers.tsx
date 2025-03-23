@@ -13,7 +13,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
 			<ThemeProvider
 				attribute="class"
 				defaultTheme="dark"
-				enableSystem={true}
+				enableSystem={false}
+				storageKey="jovian-theme"
 				disableTransitionOnChange
 			>
 				{children}
