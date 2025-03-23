@@ -169,7 +169,11 @@ const Overlay = ({ className }: { className?: string }) => {
 const CloseIcon = () => {
 	const { setOpen } = useModal();
 	return (
-		<button onClick={() => setOpen(false)} className="absolute top-4 right-4 group">
+		<button 
+			onClick={() => setOpen(false)} 
+			className="absolute top-4 right-4 group p-2 -m-2"
+			aria-label="Close modal"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -180,7 +184,8 @@ const CloseIcon = () => {
 				strokeWidth="2"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-				className="text-black dark:text-white h-4 w-4 group-hover:scale-125 group-hover:rotate-3 transition duration-200"
+				className="text-black dark:text-white h-5 w-5 group-hover:scale-125 group-hover:rotate-3 transition duration-200"
+				aria-hidden="true"
 			>
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<path d="M18 6l-12 12" />
