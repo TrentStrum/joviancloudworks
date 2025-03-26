@@ -66,9 +66,10 @@
 		@apply border-border;
 	}
 
-	body {
+	html, body {
 		@apply bg-background text-foreground transition-colors duration-300;
-		background-color: hsl(var(--background));
+		background-color: hsl(var(--background)) !important;
+		background: hsl(var(--background)) !important;
 		min-height: 100vh;
 		-webkit-tap-highlight-color: transparent;
 	}
@@ -91,9 +92,9 @@
 
 	/* Mobile-specific styles */
 	@media (max-width: 768px) {
-		body {
-			background-color: hsl(var(--background));
-			background: hsl(var(--background));
+		html, body {
+			background-color: hsl(var(--background)) !important;
+			background: hsl(var(--background)) !important;
 		}
 
 		.space-card {
