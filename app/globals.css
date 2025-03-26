@@ -68,7 +68,7 @@
 
 	body {
 		@apply bg-background text-foreground transition-colors duration-300;
-		background: radial-gradient(circle at center, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
+		background-color: hsl(var(--background));
 		min-height: 100vh;
 		-webkit-tap-highlight-color: transparent;
 	}
@@ -92,6 +92,7 @@
 	/* Mobile-specific styles */
 	@media (max-width: 768px) {
 		body {
+			background-color: hsl(var(--background));
 			background: hsl(var(--background));
 		}
 
