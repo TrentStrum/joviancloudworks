@@ -13,9 +13,11 @@ export default function Home() {
 		<main className="flex flex-col gap-32 pb-32">
 			{/* <ParticlesBackground /> */}
 
-			<section className="relative min-h-[75vh] flex items-center pt-16 md:pt-0">
-				<div className="absolute inset-0 jupiter-gradient opacity-10"></div>
-				<LandingHero />
+			<section className="relative min-h-[90vh] flex items-center">
+				<div className="absolute inset-0 jupiter-gradient opacity-10" />
+				<div className="relative w-full pt-24 sm:pt-32 md:pt-40">
+					<LandingHero />
+				</div>
 			</section>
 
 			<section className="relative z-20">
