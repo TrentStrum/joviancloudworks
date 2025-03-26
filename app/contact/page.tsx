@@ -6,7 +6,6 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ParticlesBackground } from '@/components/particles-background';
 import { Mail, Phone, Clock, Send } from 'lucide-react';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -56,8 +55,20 @@ export default function Contact() {
 
 		setIsSubmitting(true);
 		try {
-			// Here you would typically send the form data to your API
-			await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated API call
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
+
+			const data = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.error || 'Failed to send message');
+			}
+
 			toast.success('Message sent successfully!');
 			setFormData({ name: '', email: '', subject: '', message: '' });
 		} catch (error) {
@@ -78,7 +89,6 @@ export default function Contact() {
 
 	return (
 		<main className="min-h-screen pt-24 pb-16">
-			<ParticlesBackground />
 			<Container>
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}

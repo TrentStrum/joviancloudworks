@@ -6,6 +6,7 @@ import { Providers } from '@/components/providers';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { ParticlesBackground } from '@/components/particles-background';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -104,16 +105,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<body className={inter.className}>
 				<ErrorBoundary>
 					<Providers>
-						<Navigation />
-						<main id="main-content" className="flex-grow">
-							{children}
-						</main>
-						<Footer />
-						<Toaster position="top-right" richColors />
-						<div
-							aria-hidden="true"
-							className="fixed inset-0 pointer-events-none bg-gradient-to-b from-background/0 via-background/80 to-background/40 -z-10"
-						/>
+						<div className="relative min-h-screen">
+							<ParticlesBackground />
+							<div className="relative z-10">
+								<Navigation />
+								<main id="main-content" className="flex-grow">
+									{children}
+								</main>
+								<Footer />
+								<Toaster position="top-right" richColors />
+							</div>
+						</div>
 					</Providers>
 				</ErrorBoundary>
 			</body>

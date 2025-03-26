@@ -47,21 +47,6 @@
 		/* ... existing dark mode variables ... */
 	}
 
-	/* Light mode */
-	@media (prefers-color-scheme: light) {
-		:root {
-			--background: 220 85% 98%;
-			--foreground: 210 40% 2%;
-			/* ... existing light mode variables ... */
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		body {
-			background: radial-gradient(circle at center, hsl(var(--background)) 0%, hsl(var(--background)) 100%);
-		}
-	}
-
 	* {
 		@apply border-border;
 	}

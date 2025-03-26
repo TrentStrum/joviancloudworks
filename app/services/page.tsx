@@ -1,7 +1,6 @@
 'use client';
 
 import { ServicesShowcase } from '@/app/services/components/services-showcase';
-import { ParticlesBackground } from '@/components/particles-background';
 import { Container } from '@/components/ui/container';
 import HeroSection from './components/hero-section';
 import CenterLine from './components/center-line';
@@ -9,8 +8,6 @@ import CenterLine from './components/center-line';
 export default function ServicesPage() {
 	return (
 		<main className="min-h-screen">
-			<ParticlesBackground />
-
 			<section className="relative min-h-[90vh] flex items-center">
 				<div className="absolute inset-0 jupiter-gradient opacity-10" />
 				<Container className="relative w-full pt-24 sm:pt-32 md:pt-40">

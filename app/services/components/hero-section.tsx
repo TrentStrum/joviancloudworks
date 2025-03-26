@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { TextGenerateEffect } from '../../components/ui/text-generate-effect';
+import { TextGenerateEffect } from '../../../components/text-generate-effect';
 
 export default function HeroSection() {
 	return (

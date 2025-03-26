@@ -1,6 +1,5 @@
 'use client';
 
-// import { ParticlesBackground } from '@/components/particles-background';
 import LandingHero from '../components/landing/landing-hero';
 import LandingServices from '../components/landing/landing-services';
 import LandingProcess from '../components/landing/landing-process';
@@ -11,8 +10,6 @@ import LandingCta from '../components/landing/landing-cta';
 export default function Home() {
 	return (
 		<main className="flex flex-col gap-32 pb-32">
-			{/* <ParticlesBackground /> */}
-
 			<section className="relative min-h-[90vh] flex items-center">
 				<div className="absolute inset-0 jupiter-gradient opacity-10" />
 				<div className="relative w-full pt-24 sm:pt-32 md:pt-40">
