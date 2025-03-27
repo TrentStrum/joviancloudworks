@@ -26,20 +26,20 @@ const structuredData = {
 	"name": "Jovian Cloud Works",
 	"url": "https://joviancloudworks.com",
 	"logo": "https://joviancloudworks.com/og-image.jpg",
-	"description": "Enterprise-grade cloud infrastructure, security, and storage solutions.",
+	"description": "Strategic technology solutions for small businesses, combining fractional vCIO services with hands-on development expertise.",
 	"sameAs": [
-		"https://twitter.com/joviancloudworks",
 		"https://linkedin.com/company/joviancloudworks"
 	]
 };
 
 export const metadata: Metadata = {
+	metadataBase: new URL('https://joviancloudworks.com'),
 	title: {
-		default: 'Jovian Cloud Works | Enterprise Cloud Solutions',
-		template: '%s | Jovian Cloud Works'
+		default: 'JovianCloudWorks', // Browser tab title
+		template: '%s | JovianCloudWorks' // Page title
 	},
-	description: 'Enterprise-grade cloud infrastructure, security, and storage solutions. Scalable, secure, and reliable cloud services for modern businesses.',
-	keywords: ['cloud computing', 'enterprise cloud', 'cloud security', 'cloud storage', 'cloud infrastructure', 'managed cloud services'],
+	description: 'Strategic technology solutions for small businesses. We combine fractional vCIO services with hands-on development expertise to help SMBs leverage big technology without breaking the bank.',
+	keywords: ['small business IT', 'fractional vCIO', 'business technology', 'IT solutions', 'workflow automation', 'business dashboards', 'internal tools', 'SMB technology', 'local IT support', 'business technology consulting'],
 	authors: [{ name: 'Jovian Cloud Works' }],
 	creator: 'Jovian Cloud Works',
 	openGraph: {
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
 		locale: 'en_US',
 		url: 'https://joviancloudworks.com',
 		siteName: 'Jovian Cloud Works',
-		title: 'Jovian Cloud Works',
-		description: 'Enterprise-grade cloud infrastructure, security, and storage solutions.',
+		title: 'Jovian Cloud Works - Strategic Technology Solutions for Small Businesses',
+		description: 'Strategic technology solutions for small businesses. We combine fractional vCIO services with hands-on development expertise to help SMBs leverage big technology without breaking the bank.',
 		images: [
 			{
 				url: '/og-image.jpg',
@@ -57,12 +57,6 @@ export const metadata: Metadata = {
 				alt: 'Jovian Cloud Works'
 			}
 		]
-	},
-	twitter: {
-		card: 'summary_large_image',
-		title: 'Jovian Cloud Works | Enterprise Cloud Solutions',
-		description: 'Enterprise-grade cloud infrastructure, security, and storage solutions.',
-		images: ['/og-image.jpg']
 	},
 	robots: {
 		index: true,
@@ -78,11 +72,12 @@ export const metadata: Metadata = {
 	verification: {
 		google: 'your-google-verification-code', // Add your Google verification code
 	},
-	viewport: {
-		width: 'device-width',
-		initialScale: 1,
-		viewportFit: 'cover',
-	},
+};
+
+export const viewport = {
+	width: 'device-width',
+	initialScale: 1,
+	viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

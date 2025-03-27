@@ -21,19 +21,19 @@ export function ServicesShowcase() {
 
 	return (
 		<motion.div
-			className="relative mt-28 mb-24"
+			className="py-16 md:py-24"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.4, ease: 'easeOut' }}
 		>
-			<div className="grid grid-cols-1 gap-20">
+			<div className="space-y-16 md:space-y-24">
 				{data?.pages.map((page, pageIndex) =>
 					page.map((service: Service, index: number) => (
 						<ServiceCard key={service.id} service={service} index={pageIndex * 3 + index} />
 					)),
 				)}
 			</div>
-			<div ref={ref} className="h-20" />
+			<div ref={ref} className="h-16" />
 		</motion.div>
 	);
 }

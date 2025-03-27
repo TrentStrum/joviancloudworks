@@ -3,28 +3,26 @@ import { TextGenerateEffect } from '../../../components/text-generate-effect';
 
 export default function HeroSection() {
 	return (
-		<div className="flex items-center justify-center">
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 0.4, ease: 'easeOut' }}
-				className="text-center w-full"
-			>
-				<div className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 cosmic-text font-space-grotesk">
-					<TextGenerateEffect
-						words="Empower Your Vision With"
-						secondLineWords="Tailored IT Solutions"
-						className="text-center"
-						secondLineClassName="text-primary"
-						duration={0.6}
-					/>
-				</div>
-				<p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto px-4">
-					We specialize in helping small businesses and entrepreneurs thrive in the digital age.
-					From personalized consulting to custom development, we create solutions that fit your
-					unique needs and budget.
-				</p>
-			</motion.div>
-		</div>
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.4, ease: 'easeOut' }}
+			className="text-center space-y-6"
+		>
+			<div className="font-bold cosmic-text font-space-grotesk">
+				<TextGenerateEffect
+					words="Empower Your Vision With"
+					secondLineWords="Tailored IT Solutions"
+					className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+					secondLineClassName="text-primary"
+					duration={0.6}
+				/>
+			</div>
+			<p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+				We specialize in helping small businesses and entrepreneurs thrive in the digital age.
+				From personalized consulting to custom development, we create solutions that fit your
+				unique needs and budget.
+			</p>
+		</motion.div>
 	);
 }

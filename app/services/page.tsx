@@ -8,17 +8,21 @@ import CenterLine from './components/center-line';
 export default function ServicesPage() {
 	return (
 		<main className="min-h-screen">
-			<section className="relative min-h-[90vh] flex items-center">
+			{/* Hero Section */}
+			<section className="relative py-16 md:py-24">
 				<div className="absolute inset-0 jupiter-gradient opacity-10" />
-				<Container className="relative w-full pt-24 sm:pt-32 md:pt-40">
+				<Container>
 					<HeroSection />
 				</Container>
 			</section>
 
-			<div className="relative">
+			{/* Services Section */}
+			<section className="relative">
 				<CenterLine />
-				<ServicesShowcase />
-			</div>
+				<Container>
+					<ServicesShowcase />
+				</Container>
+			</section>
 		</main>
 	);
 }
