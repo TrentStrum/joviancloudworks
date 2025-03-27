@@ -11,16 +11,6 @@ export const services: Service[] = [
 		gradient: 'from-blue-500 to-indigo-500',
 		features: [
 			{
-				name: 'Microsoft Power Automate',
-				description:
-					"Build sophisticated workflows and automate complex business processes with Microsoft's industry-leading automation platform.",
-				capabilities: [
-					'AI-powered workflow automation',
-					'Cross-platform integration capabilities',
-					'Real-time process monitoring and analytics',
-				],
-			},
-			{
 				name: 'Microsoft Power Apps',
 				description:
 					'Create custom business applications with low-code solutions that integrate seamlessly with your existing systems.',
@@ -28,6 +18,16 @@ export const services: Service[] = [
 					'Drag-and-drop app development',
 					'Enterprise-grade security controls',
 					'Seamless Microsoft 365 integration',
+				],
+			},
+			{
+				name: 'Microsoft Power Automate',
+				description:
+					"Build sophisticated workflows and automate complex business processes with Microsoft's industry-leading automation platform.",
+				capabilities: [
+					'AI-powered workflow automation',
+					'Cross-platform integration capabilities',
+					'Real-time process monitoring and analytics',
 				],
 			},
 			{
@@ -87,6 +87,11 @@ export const services: Service[] = [
 		icon: Shield,
 		features: [
 			{
+				name: 'Internal Business Applications',
+				description: 'Build scalable, secure, and maintainable applications for your business.',
+				capabilities: ['Next.js', 'Clerk', 'PostgreSQL', 'Docker', 'AWS', 'CI/CD'],
+			},
+			{
 				name: 'Saas',
 				description:
 					'We can help you bring your idea to life to start your own application and sell subscriptions',
@@ -96,11 +101,6 @@ export const services: Service[] = [
 				name: 'E-Commerce',
 				description: 'Start your own online store, sell your product your way.',
 				capabilities: ['Shopify', 'Stripe', 'PayPal', 'OpenCart', 'Magento', 'WooCommerce'],
-			},
-			{
-				name: 'Internal Business Applications',
-				description: 'Build scalable, secure, and maintainable applications for your business.',
-				capabilities: ['Next.js', 'Clerk', 'PostgreSQL', 'Docker', 'AWS', 'CI/CD'],
 			},
 		],
 	},

@@ -93,7 +93,7 @@ export const TextGenerateEffect = ({
 	};
 
 	return (
-		<div className={cn('font-bold', className)}>
+		<div className={cn('font-bold space-y-8', className)}>
 			{renderWords(wordsArray, scope1)}
 			{secondLineArray.length > 0 && (
 				<div className={cn('block', secondLineClassName)}>

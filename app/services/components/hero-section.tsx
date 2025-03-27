@@ -7,9 +7,9 @@ export default function HeroSection() {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.4, ease: 'easeOut' }}
-			className="text-center space-y-6"
+			className="w-full text-center space-y-4 sm:space-y-6"
 		>
-			<div className="font-bold cosmic-text font-space-grotesk">
+			<div className="font-bold cosmic-text font-space-grotesk space-y-4 sm:space-y-6">
 				<TextGenerateEffect
 					words="Empower Your Vision With"
 					secondLineWords="Tailored IT Solutions"

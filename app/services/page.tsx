@@ -9,9 +9,9 @@ export default function ServicesPage() {
 	return (
 		<main className="min-h-screen">
 			{/* Hero Section */}
-			<section className="relative py-16 md:py-24">
+			<section className="relative h-[40vh]">
 				<div className="absolute inset-0 jupiter-gradient opacity-10" />
-				<Container>
+				<Container className="h-full flex items-center justify-center">
 					<HeroSection />
 				</Container>
 			</section>
