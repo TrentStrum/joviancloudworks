@@ -6,10 +6,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const { name, email, subject, message } = await request.json();
+    
+    console.log('Attempting to send email with:', {
+      from: 'JovianCloudWorks <onboarding@resend.dev>',
+      to: ['trent.strum@gmail.com'],
+      replyTo: email,
+      subject: `New Contact Form Submission: ${subject}`,
+    });
 
     const data = await resend.emails.send({
       from: 'JovianCloudWorks <onboarding@resend.dev>',
-      to: ['contact@joviancloudworks.io'],
+      to: ['trent.strum@gmail.com'],
       replyTo: email,
       subject: `New Contact Form Submission: ${subject}`,
       text: `
@@ -30,11 +37,25 @@ ${message}
       `,
     });
 
+    console.log('Email sent successfully:', data);
     return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error('Email sending error:', error);
+    console.error('Detailed email sending error:', {
+      error,
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      env: {
+        hasApiKey: !!process.env.RESEND_API_KEY,
+        apiKeyLength: process.env.RESEND_API_KEY?.length
+      }
+    });
+    
     return NextResponse.json(
-      { success: false, error: 'Failed to send email' },
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Failed to send email',
+        details: process.env.NODE_ENV === 'development' ? error : undefined
+      },
       { status: 500 }
     );
   }
